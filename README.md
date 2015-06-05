@@ -20,7 +20,7 @@ I have also included a crosscompiler in case yours doesn't work (because of stan
 Also rebuild your current kernel with cfg80211 set as a module.
 (if not already present, add led support -->find it in menuconfig)
 
-KNOWN AND POTENTIAL PROBLEMS:
+KNOWN AND POTENTIAL PROBLEMS
 -------------------------------------------------------------------------------------------
 --some kernel versions might change some values and cause the module to fail to compile
 --some crosscompilers don't compile the module
