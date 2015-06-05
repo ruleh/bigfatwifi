@@ -1,3 +1,3 @@
 #Bigfatwifi
 
-See the drivers/zzbigfatmod/info
+See drivers/zzbigfatmod/info
