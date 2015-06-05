@@ -1,0 +1,15 @@
+#!/system/bin/sh
+
+if [ "a$3" == "a" ];then
+  evalcmd='eval "echo \$GPUFREQ$2"'
+  eval $evalcmd
+else
+  evalcmd='eval "GPUFREQ$2=$3"'
+  eval $evalcmd
+  evalcmd='eval "echo \$GPUFREQ$2"'
+  eval $evalcmd
+    echo $GPUFREQ1 > /sys/module/mali/parameters/step0_clk
+    echo $GPUFREQ2 > /sys/module/mali/parameters/step1_clk
+    echo $GPUFREQ3 > /sys/module/mali/parameters/step2_clk
+    echo $GPUFREQ4 > /sys/module/mali/parameters/step3_clk
+fi

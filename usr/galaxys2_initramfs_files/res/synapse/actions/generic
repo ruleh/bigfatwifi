@@ -1,0 +1,15 @@
+if [ -f $1 ];then
+	if [[ ! -z $2 ]]; then
+		echo $2 > $1
+	fi
+
+    if [ "$1" == "/sys/kernel/logger_mode/logger_mode" ]; then
+      echo `cat /sys/kernel/logger_mode/logger_mode | tr -cd [0-9]`
+    else
+    if [ "$1" == "/sys/devices/virtual/sec/sec_touchkey/touchkey_brightness" ]; then
+      echo `cat /sys/devices/virtual/sec/sec_touchkey/touchkey_brightness`
+    else
+      echo `cat $1`
+    fi
+    fi;
+fi

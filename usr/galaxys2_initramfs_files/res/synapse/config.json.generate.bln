@@ -1,0 +1,101 @@
+cat << CTAG
+{
+    name:BLN,
+    elements:[
+    { STitleBar:{
+		title:"Backlight Notification Settings"
+	}},
+	{ SCheckBox:{
+		description:"BLN will get the ‘menu’ and ‘back’ buttons to light up when you receive a new text, email, or missed call, which means you won’t need to unlock the screen to discover a notification.",
+                label:"BLN",
+                default:0,
+                action:"generic /sys/class/misc/notification/notification_enabled",
+        }},
+    { SCheckBox:{
+		description:"With BLNWW enabled, notification will not hold a wakelock, but you won't be able to use LED effects.",
+                label:"BLNWW",
+                default:1,
+                action:"generic /sys/class/misc/notification/blnww",
+        }},
+        { SSeekBar:{
+	title:"Notification Timeout",
+		default:0,
+		action:"generic /sys/class/misc/notification/notification_timeout",
+		values:{
+0:"∞",
+60000:"1 minute",
+180000:"3 minutes",
+300000:"5 minutes",
+600000:"10 minutes",
+1200000:"20 minutes",
+1800000:"30 minutes",
+3600000:"1 hour",
+7200000:"2 hours",
+		}
+	}},
+	{ SOptionList:{
+		title:"BLN Effect",
+		default:Steady,
+                action:"option blneffect",
+                values:[
+			Steady,
+			Blinking,
+			Breathing,
+                ]
+        }},
+    { SPane:{
+		title:"Touchkey LEDs Settings",
+	}},
+	{ SCheckBox:{
+		description:"Force disable will keep touchkeys always off.",
+                label:"Force Disable",
+                default:1,
+                action:"generic /sys/devices/virtual/sec/sec_touchkey/force_disable",
+        }},
+    { SCheckBox:{
+		description:"Glitch when touching touchkeys.",
+                label:"Led Fade-in Effect",
+                default:0,
+                action:"generic /sys/devices/virtual/misc/notification/led_fadein",
+        }},
+
+    { SCheckBox:{
+                label:"Led Fade-out Effect",
+                default:0,
+                action:"generic /sys/devices/virtual/misc/notification/led_fadeout",
+        }},
+        { SSeekBar:{
+	title:"Touchkey LEDs Timeout",
+		default:0,
+		action:"generic /sys/devices/virtual/sec/sec_touchkey/led_timeout",
+		values:{
+0:"∞",
+1:"1 second",
+3:"3 seconds",
+6:"6 seconds",
+15:"15 seconds",
+30:"30 seconds ",
+60:"1 minute",
+120:"2 minutes",
+		}
+	}},
+	{ SSeekBar:{
+                  title:"Touchkey LEDs Voltage",
+                  step:50,
+                  min:2500,
+                  max:3300,
+                  default:3000,
+                  unit:"mV",
+                  action:"generic /sys/devices/virtual/sec/sec_touchkey/touchkey_brightness",
+               }
+            },
+     { SCheckBox:{
+		description:"If enabled will set a LED voltage based on light sensor value.",
+                label:"Touchkey LEDs Auto Brightness",
+                default:0,
+                action:"generic /sys/class/misc/notification/dyn_brightness",
+        }},
+    ]
+}
+
+CTAG

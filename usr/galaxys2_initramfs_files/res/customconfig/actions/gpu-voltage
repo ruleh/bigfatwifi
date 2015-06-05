@@ -1,0 +1,15 @@
+#!/system/bin/sh
+
+if [ "a$3" == "a" ];then
+  evalcmd='eval "echo \$GPUVOLT$2"'
+  eval $evalcmd
+else
+  evalcmd='eval "GPUVOLT$2=$3"'
+  eval $evalcmd
+  evalcmd='eval "echo \$GPUVOLT$2"'
+  eval $evalcmd
+    echo ${GPUVOLT1}000 > /sys/module/mali/parameters/step0_vol
+    echo ${GPUVOLT2}000 > /sys/module/mali/parameters/step1_vol
+    echo ${GPUVOLT3}000 > /sys/module/mali/parameters/step2_vol
+    echo ${GPUVOLT4}000 > /sys/module/mali/parameters/step3_vol
+fi

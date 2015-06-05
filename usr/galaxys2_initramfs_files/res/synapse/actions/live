@@ -1,0 +1,40 @@
+CPU_FREQ=$(($(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq)/1000))
+CPU_VOLT=$(grep ^$CPU_FREQ /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table)
+CPU_LOAD=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpu_utilization)
+CPU_ONLINE=$(cat /sys/devices/system/cpu/cpu1/online)
+CPU_TEMP=$(cat /sys/devices/platform/s5p-tmu/temperature)
+GPU_FREQ=$(cat /sys/module/mali/parameters/mali_gpu_clk)MHz
+GPU_VOLT=$(($(cat /sys/module/mali/parameters/mali_gpu_vol)/1000))
+GPU_UTILIZATION=$(cat /sys/module/mali/parameters/mali_dvfs_utilization)
+GPU_LOAD="($GPU_UTILIZATION*100)/255"; val=$(awk "BEGIN {print $GPU_LOAD}" /dev/null)
+ENTROPY=$(cat /proc/sys/kernel/random/entropy_avail)
+NUM_CPUS=$(($CPU_ONLINE + 1))
+GPS=$(head -n 1 /system/etc/gps.conf)
+
+case $1 in
+
+volt)
+echo "$CPU_VOLT: $CPU_TEMP ºC" ;;
+
+cpuload)
+echo "CPU Load: $CPU_LOAD %" ;;
+
+temp)
+echo "CPU Temperature: $CPU_TEMP C" ;;
+
+cores)
+echo "CPU Cores Online: $NUM_CPUS" ;;
+
+gpu)
+echo "$GPU_FREQ: $GPU_VOLT mV" ;;
+
+gpuload)
+echo "GPU Load: $val %" ;;
+
+entropy)
+echo "Entropy: $ENTROPY" ;;
+
+gps)
+echo "$GPS"
+
+esac

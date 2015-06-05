@@ -1,0 +1,3 @@
+#!/system/bin/sh
+
+su -c "watch -n 1 systemcat"

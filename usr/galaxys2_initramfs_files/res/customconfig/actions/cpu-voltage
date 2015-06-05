@@ -1,0 +1,17 @@
+#!/system/bin/sh
+
+if [ "a$3" == "a" ]; then
+	evalcmd='eval "echo \$CPUVOLT$2"';
+	eval $evalcmd;
+else
+	evalcmd='eval "CPUVOLT$2=$3"';
+	eval $evalcmd;
+	evalcmd='eval "echo \$CPUVOLT$2"';
+	eval $evalcmd;
+		echo "200000 $CPUVOLT6" > /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels;
+		echo "500000 $CPUVOLT5" > /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels;
+		echo "800000 $CPUVOLT4" > /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels;
+		echo "1000000 $CPUVOLT3" > /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels;
+		echo "1200000 $CPUVOLT2" > /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels;
+		echo "1400000 $CPUVOLT1" > /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels;
+fi;

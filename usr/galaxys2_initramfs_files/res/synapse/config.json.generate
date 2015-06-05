@@ -1,0 +1,18 @@
+cat << CTAG
+
+{
+    sections: [
+		`. /res/synapse/config.json.generate.cpu`,
+        `. /res/synapse/config.json.generate.governor`,
+		`. /res/synapse/config.json.generate.gpu`,
+		`. /res/synapse/config.json.generate.screen`,
+		`. /res/synapse/config.json.generate.colors`,
+		`. /res/synapse/config.json.generate.sound`,
+		`. /res/synapse/config.json.generate.bln`,
+		`. /res/synapse/config.json.generate.memory`,
+		`. /res/synapse/config.json.generate.fs`,
+		`. /res/synapse/config.json.generate.tweaks`,
+		`. /res/synapse/config.json.generate.misc`,
+    ]
+}
+CTAG

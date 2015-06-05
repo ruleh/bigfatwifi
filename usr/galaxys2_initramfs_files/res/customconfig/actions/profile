@@ -1,0 +1,134 @@
+#!/system/bin/sh
+
+if [ "a$2" != "a" ];then
+  profile=$2
+fi
+
+mount -o remount,rw /
+
+GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+
+if [ "$GOVERNOR" != "zzmoove" ];then
+
+case "${profile}" in
+  performance)
+  if [ "$GOVERNOR" == "conservative" ];then
+    echo "60" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
+    echo "5" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
+    echo "20" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
+    echo "25" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
+  fi
+  if [ "$GOVERNOR" == "hyper" ];then
+    echo "60" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
+  fi
+  if [ "$GOVERNOR" == "intellidemand" ];then
+    echo "60" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
+    echo "2" > /sys/devices/system/cpu/cpufreq/intellidemand/sampling_down_factor
+    echo "25" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
+  fi
+  if [ "$GOVERNOR" == "NeoX" ];then
+    echo "60" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
+    echo "2" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
+    echo "15" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
+    echo "100" > /sys/devices/system/cpu/cpufreq/NeoX/freq_step
+  fi
+  if [ "$GOVERNOR" == "ondemand" ];then
+    echo "60" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+    echo "2" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+    echo "15" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
+    echo "100" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
+  fi
+  if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "60" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
+    echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
+    echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
+    echo "100" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+    echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
+    echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
+  fi
+    ;;
+  balanced) 
+  if [ "$GOVERNOR" == "conservative" ];then
+    echo "90" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
+    echo "20" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
+    echo "10" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
+  fi
+  if [ "$GOVERNOR" == "hyper" ];then
+    echo "90" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
+  fi
+  if [ "$GOVERNOR" == "intellidemand" ];then
+    echo "90" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/intellidemand/sampling_down_factor
+    echo "20" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
+  fi
+  if [ "$GOVERNOR" == "NeoX" ];then
+    echo "90" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
+    echo "5" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
+    echo "70" > /sys/devices/system/cpu/cpufreq/NeoX/freq_step
+  fi
+  if [ "$GOVERNOR" == "ondemand" ];then
+    echo "90" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+    echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
+    echo "70" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
+  fi
+  if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "90" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
+    echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
+    echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
+    echo "70" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+    echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
+    echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
+  fi
+  ;;
+  battery)
+  if [ "$GOVERNOR" == "conservative" ];then
+    echo "95" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
+    echo "40" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
+    echo "5" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
+  fi
+  if [ "$GOVERNOR" == "hyper" ];then
+    echo "95" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
+  fi
+  if [ "$GOVERNOR" == "intellidemand" ];then
+    echo "95" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/intellidemand/sampling_down_factor
+    echo "5" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
+  fi
+  if [ "$GOVERNOR" == "NeoX" ];then
+    echo "95" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
+    echo "5" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
+  fi
+  if [ "$GOVERNOR" == "ondemand" ];then
+    echo "95" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+    echo "5" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
+    echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
+  fi
+  if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "95" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
+    echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
+    echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+    echo "15" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
+    echo "15" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
+  fi
+ 
+    ;;
+esac;
+
+mount -o remount,ro /
+
+echo $profile
+
+else
+
+mount -o remount,ro /
+
+echo Current governor is zzmmove, use the settings below!
+
+fi

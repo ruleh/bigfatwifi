@@ -1,0 +1,20 @@
+#!/system/bin/sh
+
+if [ "a$2" != "a" ];then
+  msaa=$2
+fi
+
+mount -o remount,rw /
+
+case "${msaa}" in
+  off)
+    setprop debug.egl.force_msaa false
+    ;;
+  on)
+    setprop debug.egl.force_msaa true
+    ;;
+esac;
+
+mount -o remount,ro /
+
+echo $msaa

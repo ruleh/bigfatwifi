@@ -1,0 +1,49 @@
+cat << CTAG
+{
+    name:MISC,
+    elements:[
+	{ STitleBar:{
+		title:"Android logcat"
+	}},
+	{ SCheckBox:{
+		description:"When disabled this will stop logcat creation; crash reports will be useless, but there is a minor possible gain to battery life.",
+                label:"Android Logcat",
+                default:`cat /sys/kernel/logger_mode/logger_mode | tr -cd [0-9]`,
+                action:"generic /sys/kernel/logger_mode/logger_mode"
+        }},
+    { SCheckBox:{
+	description:"When disabled this will stop kmsg creation; crash reports will be useless, but there is a minor possible gain to battery life.",
+	label:"Linux KMSG",
+	default:`cat /sys/kernel/printk_mode/printk_mode | tr -cd [0-9]`,
+	action:"generic /sys/kernel/printk_mode/printk_mode"
+        }},
+{ SPane:{
+		title:"IPv6 Support",
+		description:"The device doesn't reply to ICMPv6 requests when in deep sleep and therefore it will lose the connection to the internet. Keeping IPv6 support disabled will prevent it from happening."
+}},
+{ SCheckBox:{
+                label:"IPv6 Support",
+                default:0,
+                action:"option ipv6"
+        }},
+{ SPane:{
+		title:"Fuel-Gauge",
+		description:"If you think that the fuel gauge chip is behaving weird use this button to reset it. Give it a few hours after you reset the gauge. It may still show you funny values for those period, then the battery percentage should be fine."
+}},
+        { SButton:{
+   label:"Reset Fuel-Gauge Chip",
+   action:"reset-fuelgauge"
+}},
+{ SPane:{
+		title:"Sensors",
+		description:"If you think that the g-sensor is behaving weird use this button to calibrate it. Place your device in a flat surface to get accurate calibrations. To calibrate the magnetic sensor, just turn your device around itself in x, y & z axis a couple of times."
+	}},
+{ SButton:{
+   label:"Calibrate G-Sensor",
+   action:"calibrate-gsensor"
+}},
+
+ ]
+}
+
+CTAG

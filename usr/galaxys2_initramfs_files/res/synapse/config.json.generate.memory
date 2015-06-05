@@ -1,0 +1,25 @@
+cat << CTAG
+{
+    name:MEMORY,
+    elements:[
+    { STitleBar:{
+		title:"Memory Settings",
+		description:"These settings will give you 'more memory' at the cost increased CPU load."
+	}},
+	{ SSeekBar:{
+		title:"ZRAM",
+		description:"This will enable ZRAM and create a swap partition on it.",
+                min:0, max:384, unit:" MB", step:32,
+                default:0,
+                action:"zram zram0"
+	}},
+    { SCheckBox:{
+		description:"This will enable Kernel Same-page Merging. KSM is a kernel thread that runs in the background and compares pages in memory, if two pages are found to be the same, the KSM thread merges them back as a single copy-on-write page of memory, thus freeing memory.",
+                label:"KSM",
+                default:0,
+                action:"generic /sys/kernel/mm/ksm/run",
+        }},
+	]
+}
+
+CTAG

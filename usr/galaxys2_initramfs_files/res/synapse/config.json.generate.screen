@@ -1,0 +1,92 @@
+cat << CTAG
+{
+    name:SCREEN,
+    elements:[
+    { STitleBar:{
+		title:"MDNIE Control",
+		description:"Negative mode can be enabled by pressing home button 4 times."
+	}},
+	{ SSeekBar:{
+	title:"Scenario",
+		default:0,
+		action:"generic /sys/class/mdnie/mdnie/scenario",
+		values:{
+0:"Default",
+1:"UI",
+2:"Video",
+3:"Warm Video",
+4:"Cold Video",
+5:"Camera",
+6:"Browsing",
+7:"Gallery",
+8:"VT",
+		}
+	}},
+
+{ SSeekBar:{
+	title:"Mode",
+		default:0,
+		action:"generic /sys/class/mdnie/mdnie/mode",
+		values:{
+0:"Default",
+1:"Dynamic",
+2:"Natural",
+3:"Movie",
+		}
+	}},
+{ SPane:{
+		title:"Brightness & Gamma",
+	}},	
+	{ SSeekBar:{
+                  title:"Auto brightness sensitivity",
+                  description:"Higher values will result in staying in lowest brightness level for brighter conditions.",
+                  step:10,
+                  min:0,
+                  max:150,
+                  default:40,
+                  action:"generic /sys/class/misc/brightness_curve/min_bl",
+               }},
+    { SSeekBar:{
+                  title:"Minimum brightness level",
+                  step:1,
+                  min:0,
+                  max:24,
+                  default:0,
+                  action:"generic /sys/class/misc/brightness_curve/min_gamma",
+               }},
+    { SSeekBar:{
+                  title:"Maximum brightness level",
+                  step:1,
+                  min:0,
+                  max:24,
+                  default:20,
+                  action:"generic /sys/class/misc/brightness_curve/max_gamma",
+               }},
+	{ SSeekBar:{
+                  title:"User adjustable gamma shift",
+                  step:5,
+                  min:-50,
+                  max:50,
+                  default:0,
+                  action:"generic /sys/class/lcd/panel/user_gamma_adjust",
+               }},
+    { SCheckBox:{
+		description:"Lower brightness and yellowish colors for more battery life.",
+                label:"Screen Power Reduce",
+                default:0,
+                action:"generic /sys/class/lcd/panel/power_reduce",
+        }},   
+{ SPane:{
+		title:"Slide2Wake",
+	}},
+	{ SCheckBox:{
+		description:"Enabling slide2wake may decrease your battery life.",
+                label:"Slide2Wake",
+                default:0,
+                action:"generic /sys/devices/virtual/sec/sec_touchscreen/tsp_slide2wake",
+        }},
+
+	 ]
+}
+
+CTAG

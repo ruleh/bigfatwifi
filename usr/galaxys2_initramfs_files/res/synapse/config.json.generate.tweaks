@@ -1,0 +1,61 @@
+cat << CTAG
+{
+    name:TWEAKS,
+    elements:[
+    { STitleBar:{
+		title:"CFS Tweaks"
+	}},
+	{ SCheckBox:{
+		description:"Disabling Gentle Fair Sleepers may improve UI responsiveness.",
+                label:"GENTLE_FAIR_SLEEPERS",
+                default:0,
+                action:"option GFS",
+        }},
+    { SCheckBox:{
+		description:"Using ARCH_POWER enables the use of arm topology power functions instead of generic ones.",
+                label:"ARCH_POWER",
+                default:1,
+                action:"option power",
+        }},
+	{ SPane:{
+		title:"Charge Control",
+	}},
+	{ SOptionList:{
+		title:"Charge Current Control",
+		default:1,
+        action:"option charge",
+        values:{
+1:"AC:650mA, Misc,USB:450mA (Stock)",
+2:"AC,Misc:650mA, USB:450mA",
+3:"All:650mA (risky for USB ports)",
+                }
+        }},
+{ SPane:{
+		title:"Vibration Control",
+	}},
+
+{ SSeekBar:{
+   description:"If your rom has vibration control in settings, use it instead of synapse settings.",
+   min:0,
+   max:100,
+   unit:"%",
+   default:50,
+   action:"generic /sys/class/timed_output/vibrator/pwm_value"
+}},
+{ SPane:{
+		title:"GPS",
+	}},
+ { SGeneric:{
+   title:"GPS Configuration",
+   description:"Here you can modify your gps.conf file to improve GPS reception by typing your location code in the text box below. Info about location prefix codes can be found <a href='http://www.pool.ntp.org/en/'>here</a>",
+   default:north-america,
+   action:"option gps",
+}},
+{ SLiveLabel:{
+		refresh:1000,
+		action:"live gps"
+	}},
+	]
+}
+
+CTAG

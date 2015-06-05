@@ -1,0 +1,243 @@
+cat << CTAG
+{
+    name:GPU,
+    elements:[
+	{ STitleBar:{
+		title:"GPU Control"
+	}},
+	{ SLiveLabel:{
+		title:"Current GPU Frequency and Voltage. After choosing a new GPU frequency or right after boot, you will have to wait until GPU jumps up or down to refresh these values.",
+		refresh:1000,
+		action:"live gpu"
+	}},
+	{ SCheckBox:{
+		description:"Multisample anti-aliasing can improve image quality of some 3D games. This option can cause force close on some 2D apps that use gpu rendering, like stock gallery app.",
+                label:"4x MSAA",
+                default:0,
+                action:"option MSAA",
+        }},
+	{ SCheckBox:{
+		description:"Enabling VPLL mode may be unstable on some devices. If you do not use VPLL Mode some frequency steps will be unavailable. Be CAREFUL with voltages.",
+                label:"VPLL Mode",
+                default:0,
+                action:"generic /sys/module/mali/parameters/mali_use_vpll"
+        }},
+{ SPane:{
+		title:"GPU Frequency Control",
+		description:"The defaults are 108, 160, 200 and 267. GPU frequencies over 267MHz will cause excessive heat, which will trigger CPU's thermal throttling, reducing CPU's performance."
+	}},
+	{ SSeekBar:{
+	title:"GPU 1st Step Frequency",
+		default:108,
+		action:"generic /sys/module/mali/parameters/step0_clk",
+		values:{
+520:"520 MHz (vpll)",
+440:"440 MHz (vpll)",
+400:"400 MHz",
+330:"330 MHz (vpll)",
+267:"267 MHz",
+200:"200 MHz",
+160:"160 MHz",
+108:"108 MHz",
+66:"66 MHz (vpll)",
+54:"54 MHz (vpll)",
+		}
+	}},
+	{ SSeekBar:{
+		title:"GPU 2nd Step Frequency",
+		default:160,
+		action:"generic /sys/module/mali/parameters/step1_clk",
+		values:{
+520:"520 MHz (vpll)",
+440:"440 MHz (vpll)",
+400:"400 MHz",
+330:"330 MHz (vpll)",
+267:"267 MHz",
+200:"200 MHz",
+160:"160 MHz",
+108:"108 MHz",
+66:"66 MHz (vpll)",
+54:"54 MHz (vpll)",
+		}
+	}},
+	{ SSeekBar:{
+		title:"GPU 3rd Step Frequency",
+		default:200,
+		action:"generic /sys/module/mali/parameters/step2_clk",
+		values:{
+520:"520 MHz (vpll)",
+440:"440 MHz (vpll)",
+400:"400 MHz",
+330:"330 MHz (vpll)",
+267:"267 MHz",
+200:"200 MHz",
+160:"160 MHz",
+108:"108 MHz",
+66:"66 MHz (vpll)",
+54:"54 MHz (vpll)",
+		}
+	}},
+	{ SSeekBar:{
+		title:"GPU 4th Step Frequency",
+		default:267,
+		action:"generic /sys/module/mali/parameters/step3_clk",
+		values:{
+520:"520 MHz (vpll)",
+440:"440 MHz (vpll)",
+400:"400 MHz",
+330:"330 MHz (vpll)",
+267:"267 MHz",
+200:"200 MHz",
+160:"160 MHz",
+108:"108 MHz",
+66:"66 MHz (vpll)",
+54:"54 MHz (vpll)",
+		}
+	}},
+	{ SPane:{
+		title:"GPU Voltage Control",
+		description:"The defaults are 900, 900, 950 and 1000. Decreasing voltage will lower power consumption of the GPU. Increasing it on overclocked frequencies improves stability. Too low voltage may cause instabilities and freezes."
+	}},
+	{ SSeekBar:{
+		title:"GPU 1st Step Voltage",
+		default:900000,
+		action:"generic /sys/module/mali/parameters/step0_vol",
+		values:{
+800000:"800 mV",
+850000:"850 mV",
+900000:"900 mV",
+950000:"950 mV",
+1000000:"1000 mV",
+1050000:"1050 mV",
+1100000:"1100 mV",
+1150000:"1150 mV",
+1200000:"1200 mV",
+1250000:"1250 mV",
+1300000:"1300 mV",
+1350000:"1350 mV",
+1400000:"1400 mV",
+		}
+	}},
+	{ SSeekBar:{
+		title:"GPU 2nd Step Voltage",
+		default:900000,
+		action:"generic /sys/module/mali/parameters/step1_vol",
+		values:{
+800000:"800 mV",
+850000:"850 mV",
+900000:"900 mV",
+950000:"950 mV",
+1000000:"1000 mV",
+1050000:"1050 mV",
+1100000:"1100 mV",
+1150000:"1150 mV",
+1200000:"1200 mV",
+1250000:"1250 mV",
+1300000:"1300 mV",
+1350000:"1350 mV",
+1400000:"1400 mV",
+		}
+	}},
+	{ SSeekBar:{
+		title:"GPU 3rd Step Voltage",
+		default:950000,
+		action:"generic /sys/module/mali/parameters/step2_vol",
+		values:{
+800000:"800 mV",
+850000:"850 mV",
+900000:"900 mV",
+950000:"950 mV",
+1000000:"1000 mV",
+1050000:"1050 mV",
+1100000:"1100 mV",
+1150000:"1150 mV",
+1200000:"1200 mV",
+1250000:"1250 mV",
+1300000:"1300 mV",
+1350000:"1350 mV",
+1400000:"1400 mV",
+		}
+	}},
+	{ SSeekBar:{
+		title:"GPU 4th Step Voltage",
+		default:1000000,
+		action:"generic /sys/module/mali/parameters/step3_vol",
+		values:{
+800000:"800 mV",
+850000:"850 mV",
+900000:"900 mV",
+950000:"950 mV",
+1000000:"1000 mV",
+1050000:"1050 mV",
+1100000:"1100 mV",
+1150000:"1150 mV",
+1200000:"1200 mV",
+1250000:"1250 mV",
+1300000:"1300 mV",
+1350000:"1350 mV",
+1400000:"1400 mV",
+		}
+	}},
+	{ SPane:{
+		title:"GPU Threshold Control",
+		description:"GPU load thresholds to change between frequency steps."
+	}},
+	{ SSeekBar:{
+		title:"GPU Threshold 1-UP",
+		description:"GPU threshold to jump up from first to second step",
+		default:85,
+		min:0,
+        max:100,
+        unit:"%",
+		action:"generic /sys/module/mali/parameters/step0_up",
+		}},
+		{ SSeekBar:{
+		title:"GPU Threshold 2-DOWN",
+		description:"GPU threshold to jump down from second to first step",
+		default:60,
+		min:0,
+        max:100,
+        unit:"%",
+		action:"generic /sys/module/mali/parameters/step1_down",
+		}},
+		{ SSeekBar:{
+		title:"GPU Threshold 2-UP",
+		description:"GPU threshold to jump up from second to third step",
+		default:90,
+		min:0,
+        max:100,
+        unit:"%",
+		action:"generic /sys/module/mali/parameters/step1_up",
+		}},
+		{ SSeekBar:{
+		title:"GPU Threshold 3-DOWN",
+		description:"GPU threshold to jump down from third to second step",
+		default:70,
+		min:0,
+        max:100,
+        unit:"%",
+		action:"generic /sys/module/mali/parameters/step2_down",
+		}},
+		{ SSeekBar:{
+		title:"GPU Threshold 3-UP",
+		description:"GPU threshold to jump up from third to fourth step",
+		default:90,
+		min:0,
+        max:100,
+        unit:"%",
+		action:"generic /sys/module/mali/parameters/step2_up",
+		}},
+		{ SSeekBar:{
+		title:"GPU Threshold 4-DOWN",
+		description:"GPU threshold to jump down from fourth to third step",
+		default:70,
+		min:0,
+        max:100,
+        unit:"%",
+		action:"generic /sys/module/mali/parameters/step3_down",
+		}},
+
+    ]
+}
+
+CTAG

@@ -1,0 +1,21 @@
+#!/system/bin/sh
+
+CPU_FREQ=$(($(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq)/1000))
+CPU_VOLT=$(grep ^$CPU_FREQ /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table)
+CPU_LOAD=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpu_utilization)
+CPU_ONLINE=$(cat /sys/devices/system/cpu/cpu1/online)
+CPU_TEMP=$(cat /sys/devices/platform/s5p-tmu/temperature)
+GPU_FREQ=$(cat /sys/module/mali/parameters/mali_gpu_clk)MHz
+GPU_VOLT=$(($(cat /sys/module/mali/parameters/mali_gpu_vol)/1000))
+GPU_UTILIZATION=$(cat /sys/module/mali/parameters/mali_dvfs_utilization)
+GPU_LOAD="($GPU_UTILIZATION*100)/255"; val=$(awk "BEGIN {print $GPU_LOAD}" /dev/null)
+ENTROPY=$(cat /proc/sys/kernel/random/entropy_avail)
+NUM_CPUS=$(($CPU_ONLINE + 1))
+
+echo CPU: $CPU_VOLT
+echo CPU Load: $CPU_LOAD %
+echo CPU Temperature: $CPU_TEMP C
+echo CPU Cores Online: $NUM_CPUS
+echo GPU: $GPU_FREQ: $GPU_VOLT mV
+echo GPU Load: $val %
+echo Entropy: $ENTROPY

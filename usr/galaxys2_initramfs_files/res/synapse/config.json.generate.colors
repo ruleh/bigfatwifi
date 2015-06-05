@@ -1,0 +1,129 @@
+cat << CTAG
+{
+    name:COLORS,
+    elements:[
+    { STitleBar:{
+		title:"MDNIE Hijack",
+	}},
+{ SCheckBox:{
+		description:"Must be enabled to use color control.",
+        label:"MDNIE Hijack",
+        default:0,
+        action:"generic /sys/class/mdnie/mdnie/hijack",
+        }},
+{ SPane:{
+		title:"RGB Control",
+	}},
+{ SSeekBar:{
+	title:"Red Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/red_red",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Green Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/green_green",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Blue Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/blue_blue",
+	min:0, max:255, step:1 }},
+{ SPane:{
+		title:"Color Shift Control",
+		description:"Sets how much a color will shift to RGB. Example: Red-Green is how much red color will shift to green color.",
+	}},
+{ SSeekBar:{
+	title:"Red-Green Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/red_green",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Red-Blue Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/red_blue",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Green-Red Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/green_red",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Green-Blue Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/green_blue",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Blue-Red Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/blue_red",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Blue-Green Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/blue_green",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Cyan-Red Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/cyan_red",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Cyan-Green Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/cyan_green",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Cyan-Blue Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/cyan_blue",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Magenta-Red Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/magenta_red",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Magenta-Green Level",
+	default:0,
+	action:"generic /sys/class/mdnie/mdnie/magenta_green",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Magenta-Blue Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/magenta_blue",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Yellow-Red Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/yellow_red",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Yellow-Green Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/yellow_green",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"Yellow-Blue Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/yellow_blue",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"White-Red Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/white_red",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"White-Green Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/white_green",
+	min:0, max:255, step:1 }},
+{ SSeekBar:{
+	title:"White-Blue Level",
+	default:255,
+	action:"generic /sys/class/mdnie/mdnie/white_blue",
+	min:0, max:255, step:1 }},
+	 ]
+}
+
+CTAG

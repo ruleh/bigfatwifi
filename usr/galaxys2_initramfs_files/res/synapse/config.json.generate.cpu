@@ -1,0 +1,104 @@
+cat << CTAG
+
+{
+    name:CPU,
+    elements:[
+	{ STitleBar:{
+		title:"CPU Scaling Settings"
+	}},
+	{ SLiveLabel:{
+		title:"Current CPU Frequency, Voltage and Temperature:",
+		refresh:1000,
+		action:"live volt"
+	}},
+	{ SSeekBar:{
+	title:"CPU Max Frequency",
+		description:"Set the maximum frequency the CPU scales up to.",
+		default:1200000,
+		action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+		values:{
+1400000:"1400 MHz",
+1200000:"1200 MHz",
+1000000:"1000 MHz",
+800000:"800 MHz",
+500000:"500 MHz",
+200000:"200 MHz",
+		}
+	}},
+	{ SSeekBar:{
+	title:"CPU Min Frequency",
+		description:"Set the minimum frequency the CPU scales down to.",
+		default:200000,
+		action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+		values:{
+1400000:"1400 MHz",
+1200000:"1200 MHz",
+1000000:"1000 MHz",
+800000:"800 MHz",
+500000:"500 MHz",
+200000:"200 MHz",
+		}
+	}},
+   { SPane:{
+		title:"CPU Hotplug Control",
+		description:"You can set the CPU hotplug as dynamic hotplug mode, single core mode or fully dual core mode. You should refresh this setting after changing governors."
+	}},
+	{ SOptionList:{
+                default:1,
+                action:"option hotplug",
+                values:{
+1:"Dynamic Hotplug",
+2:"Single Core Mode",
+3:"Dual Core Mode",
+                }
+        }},
+{ STitleBar:{
+        title:"Sched Options"
+    }},
+{ SSeekBar:{
+        title:"Multicore Power Savings",
+        description:"Try to group tasks into the least cores possible. The higher the value, the more aggressive.",
+        default:`cat /sys/devices/system/cpu/sched_mc_power_savings`,
+        action:"generic /sys/devices/system/cpu/sched_mc_power_savings",
+        values:{ 0:"0: Disabled", 1:"1", 2:"2" }
+    }},     
+{ SPane:{
+		title:"CPU Voltage Control",
+		description:"Decreasing voltage will lower power consumption of the CPU. Increasing it on overclocked frequencies improves stability. Too low voltage may cause instabilities and freezes."
+	}},
+
+{ SSeekBar:{
+	default:1325,
+	title:"1400MHz:",
+	action:"cpuvolt 1400MHz:",
+	unit:" mV", min:1225, max:1425, step:25 }},
+{ SSeekBar:{
+	default:1275,
+	title:"1200MHz:",
+	action:"cpuvolt 1200MHz:",
+	unit:" mV", min:1175, max:1375, step:25 }},
+{ SSeekBar:{
+	default:1175,
+	title:"1000MHz:",
+	action:"cpuvolt 1000MHz:",
+	unit:" mV", min:1075, max:1275, step:25 }},
+{ SSeekBar:{
+	default:1075,
+	title:"800MHz:",
+	action:"cpuvolt 800MHz:",
+	unit:" mV", min:975, max:1175, step:25 }},
+{ SSeekBar:{
+	default:975,
+	title:"500MHz:",
+	action:"cpuvolt 500MHz:",
+	unit:" mV", min:875, max:1075, step:25 }},
+{ SSeekBar:{
+	default:950,
+	title:"200MHz:",
+	action:"cpuvolt 200MHz:",
+	unit:" mV", min:850, max:1050, step:25 }},
+
+    ]
+}
+
+CTAG

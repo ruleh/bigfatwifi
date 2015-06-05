@@ -1,0 +1,20 @@
+#!/system/bin/sh
+
+if [ "a$2" != "a" ];then
+  negative=$2
+fi
+
+mount -o remount,rw /
+
+case "${negative}" in
+  off)
+    echo "0" > /sys/class/mdnie/mdnie/negative
+    ;;
+  on)
+    echo "1" > /sys/class/mdnie/mdnie/negative
+    ;;
+esac;
+
+mount -o remount,ro /
+
+echo $negative

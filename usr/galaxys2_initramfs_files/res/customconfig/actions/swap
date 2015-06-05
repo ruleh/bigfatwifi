@@ -1,0 +1,23 @@
+#!/system/bin/sh
+
+if [ "a$2" != "a" ];then
+  swap=$2
+fi
+
+mount -o remount,rw /
+
+case "${swap}" in
+  on)
+    swapaccount=1
+    mkswap /dev/block/zram0
+    swapon /dev/block/zram0
+    ;;
+  off)
+    swapaccount=0
+    swapoff /dev/block/zram0
+    ;;
+esac;
+
+mount -o remount,ro /
+
+echo $swap

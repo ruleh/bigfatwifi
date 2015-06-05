@@ -1,0 +1,388 @@
+profile() {
+GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+if [ "$GOVERNOR" == "zzmoove" ];then
+	if [[ ! -z $2 ]]; then
+		case $2 in
+1)
+echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+2)
+echo "2" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+3)
+echo "3" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+4)
+echo "4" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+5)
+echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+6)
+echo "6" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+7)
+echo "7" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+8)
+echo "8" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+9)
+echo "9" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+10)
+echo "10" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+99)
+
+;;
+		esac
+	fi
+	
+	if grep -q 0 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 1
+	elif grep -q 1 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 1
+	elif grep -q 2 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 2
+	elif grep -q 3 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 3
+	elif grep -q 4 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 4
+	elif grep -q 5 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 5
+	elif grep -q 6 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 6
+	elif grep -q 7 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 7
+	elif grep -q 8 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 8
+	elif grep -q 9 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 9
+	elif grep -q 10 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 10
+	fi
+else
+
+echo 99
+	
+	fi
+}
+
+
+bln() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+		Steady)
+			echo "0" > /sys/class/misc/notification/breathing
+			echo "reset" > /sys/class/misc/notification/breathing_steps
+			;;
+		Breathing)
+			echo "1" > /sys/class/misc/notification/breathing
+            echo "reset" > /sys/class/misc/notification/breathing_steps
+            echo "2600 3300 70 50" > /sys/class/misc/notification/breathing_steps
+            echo "3300 2600 70 50" > /sys/class/misc/notification/breathing_steps
+            ;;
+		Blinking)
+			echo "1" > /sys/class/misc/notification/breathing
+            echo "reset" > /sys/class/misc/notification/breathing_steps
+            echo "2500 2500 1000 100" > /sys/class/misc/notification/breathing_steps
+            echo "3300 3300 1000 100" > /sys/class/misc/notification/breathing_steps
+            ;;
+		esac
+	fi
+	if grep -q 0 /sys/class/misc/notification/breathing ; then
+		echo Steady
+	elif grep -q 50 /sys/class/misc/notification/breathing_steps ; then
+		echo Breathing
+	elif grep -q 1000 /sys/class/misc/notification/breathing_steps ; then
+		echo Blinking
+	fi
+}
+
+gpsconf() {
+	if [[ ! -z $2 ]]; then
+	mount -o remount,rw /system
+	mount -o remount,rw /data
+	echo "NTP_SERVER=$2.ntp.org
+XTRA_SERVER_1=http://xtra1.gpsonextra.net/xtra.bin
+XTRA_SERVER_2=http://xtra2.gpsonextra.net/xtra.bin
+XTRA_SERVER_3=http://xtra3.gpsonextra.net/xtra.bin
+SUPL_HOST=supl.google.com
+SUPL_PORT=7276" > /system/etc/gps.conf
+    cp /system/etc/gps.conf /data/gps.conf
+mount -o remount,ro /system
+	fi
+
+	if grep -q north-america /system/etc/gps.conf ; then
+		echo north-america
+	else
+	echo $2
+	fi
+}
+
+charger() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  1)
+    echo "650 450 450" > /sys/devices/virtual/misc/charge_current/charge_current
+    ;;
+  2)
+    echo "650 650 450" > /sys/devices/virtual/misc/charge_current/charge_current
+    ;;
+  3)
+    echo "650 650 650" > /sys/devices/virtual/misc/charge_current/charge_current
+    ;;
+	esac
+	fi
+
+	current=$(grep -c "650" /sys/devices/virtual/misc/charge_current/charge_current)
+	if [ "$current" == "1" ];then
+	echo 1
+	elif [ "$current" == "2" ];then
+	echo 2
+	elif [ "$current" == "3" ];then
+	echo 3
+	fi
+	}
+	
+hotplug_control() {
+	if [[ ! -z $2 ]]; then
+    GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+		case $2 in
+  1)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
+    echo "on" > /sys/devices/virtual/misc/second_core/hotplug_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
+    
+    ;;
+  2)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
+    echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "off" > /sys/devices/virtual/misc/second_core/second_core_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
+    ;;
+  3)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
+    echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "on" > /sys/devices/virtual/misc/second_core/second_core_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "2" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
+    ;;
+	esac
+	fi
+
+	dynamic=$(cat /sys/devices/virtual/misc/second_core/hotplug_on)
+	dual=$(cat /sys/devices/virtual/misc/second_core/second_core_on)
+	if [ "$dynamic" == "on" ];then
+	echo 1
+	elif [ "$dynamic" == "off" ];then
+	if [ "$dual" == "off" ];then
+	echo 2
+	fi
+	if [ "$dual" == "on" ];then
+	echo 3
+	fi
+	fi
+	}
+	
+msaa_config() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  0)
+    if [ -f /data/msaa ]; then
+	rm /data/msaa
+	fi
+    setprop debug.egl.force_msaa false
+    echo "off" > /data/msaa
+    ;;
+  1)
+    if [ -f /data/msaa ]; then
+	rm /data/msaa
+	fi
+    setprop debug.egl.force_msaa true
+    echo "on" > /data/msaa
+    ;;
+	esac
+	fi
+
+	if grep -q on /data/msaa ; then
+		echo 1
+	else
+	    echo 0
+	fi
+	}
+
+sleepers() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  0)
+    echo "NO_GENTLE_FAIR_SLEEPERS" > /sys/kernel/debug/sched_features
+    ;;
+  1)
+    echo "GENTLE_FAIR_SLEEPERS" > /sys/kernel/debug/sched_features
+    ;;
+	esac
+	fi
+
+	if grep -q NO_GENTLE_FAIR_SLEEPERS /sys/kernel/debug/sched_features ; then
+		echo 0
+	else
+	    echo 1
+	fi
+	}
+
+arch() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  0)
+    echo "NO_ARCH_POWER" > /sys/kernel/debug/sched_features
+    ;;
+  1)
+    echo "ARCH_POWER" > /sys/kernel/debug/sched_features
+    ;;
+	esac
+	fi
+
+	if grep -q NO_ARCH_POWER /sys/kernel/debug/sched_features ; then
+		echo 0
+	else
+	    echo 1
+	fi
+}
+
+ipv6() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  0)
+    echo "1" > /proc/sys/net/ipv6/conf/wlan0/disable_ipv6;
+    sysctl -w net.ipv6.conf.all.disable_ipv6=1
+    ;;
+  1)
+    echo "0" > /proc/sys/net/ipv6/conf/wlan0/disable_ipv6;
+    sysctl -w net.ipv6.conf.all.disable_ipv6=0
+    ;;
+	esac
+	fi
+
+	if grep -q 1 /proc/sys/net/ipv6/conf/wlan0/disable_ipv6 ; then
+		echo 0
+	else
+	    echo 1
+	fi
+}
+
+case $1 in
+
+profiles)
+
+if [[ ! -z $2 ]]; then
+		profile $1 $2
+	else
+		profile $1
+	fi
+	;;
+
+blneffect)
+
+if [[ ! -z $2 ]]; then
+		bln $1 $2
+	else
+		bln $1
+	fi
+	;;
+
+gps)
+
+if [[ ! -z $2 ]]; then
+		gpsconf $1 $2
+	else
+		gpsconf $1
+	fi
+	;;
+
+charge)
+
+if [[ ! -z $2 ]]; then
+		charger $1 $2
+	else
+		charger $1
+	fi
+	;;
+
+hotplug)
+
+if [[ ! -z $2 ]]; then
+		hotplug_control $1 $2
+	else
+		hotplug_control $1
+	fi
+	;;
+
+MSAA)
+
+if [[ ! -z $2 ]]; then
+		msaa_config $1 $2
+	else
+		msaa_config $1
+	fi
+	;;
+	
+GFS)
+
+if [[ ! -z $2 ]]; then
+		sleepers $1 $2
+	else
+		sleepers $1
+	fi
+	;;
+
+power)
+
+if [[ ! -z $2 ]]; then
+		arch $1 $2
+	else
+		arch $1
+	fi
+	;;
+
+ipv6)
+
+if [[ ! -z $2 ]]; then
+		ipv6 $1 $2
+	else
+		ipv6 $1
+	fi
+	;;
+
+esac

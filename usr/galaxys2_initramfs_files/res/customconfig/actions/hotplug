@@ -1,0 +1,55 @@
+#!/system/bin/sh
+
+if [ "a$2" != "a" ];then
+  hotplug=$2
+fi
+
+mount -o remount,rw /
+
+GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+
+case "${hotplug}" in
+  1)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
+    echo "on" > /sys/devices/virtual/misc/second_core/hotplug_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
+    
+    ;;
+  2)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
+    echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "off" > /sys/devices/virtual/misc/second_core/second_core_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
+    ;;
+  3)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
+    echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "on" > /sys/devices/virtual/misc/second_core/second_core_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "2" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
+    ;;
+esac;
+
+mount -o remount,ro /
+
+echo $hotplug

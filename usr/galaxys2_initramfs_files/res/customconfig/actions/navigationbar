@@ -1,0 +1,33 @@
+#!/system/bin/sh
+
+if [ "$2" ]; then
+    navigationbar=$2
+    ON_NAVIGATIONBAR="qemu.hw.mainkeys=0"
+    OFF_NAVIGATIONBAR="qemu.hw.mainkeys=1"
+
+    PROP_NAVBAR=$(grep -e '^qemu.hw.mainkeys' /data/local.prop)
+    case "${navigationbar}" in
+	default)
+	    [ -f /data/config.txt ] && sed -i -e "s/^NAVIGATION_BAR=.*/NAVIGATION_BAR=0/g" /data/config.txt
+	    ;;
+	on)
+	    [ -f /data/config.txt ] && sed -i -e "s/^NAVIGATION_BAR=.*/NAVIGATION_BAR=1/g" /data/config.txt
+	    if [ ! "$PROP_NAVBAR" ]; then
+		echo $ON_NAVIGATIONBAR >> /data/local.prop
+		REBOOT_SYSTEM=1
+	    elif [ "$PROP_NAVBAR" != "$ON_NAVIGATIONBAR" ]; then
+		sed -i -e "s/^qemu.hw.mainkeys.*/${ON_NAVIGATIONBAR}/g" /data/local.prop
+		REBOOT_SYSTEM=1
+	    fi
+	    ;;
+	off)
+	    [ -f /data/config.txt ] && sed -i -e "s/^NAVIGATION_BAR=.*/NAVIGATION_BAR=2/g" /data/config.txt
+	    if [ "$PROP_NAVBAR" ]; then
+		sed -i -e '/^qemu.hw.mainkeys.*/d' /data/local.prop
+		REBOOT_SYSTEM=1
+	    fi
+	    ;;
+    esac
+fi
+
+echo ${navigationbar}

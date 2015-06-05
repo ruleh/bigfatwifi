@@ -1,0 +1,16 @@
+config CRC_ITU_T
+	bool "enable crc-itu-t error check (required by rt73usb)"
+	---help---
+ 	This is some eror-checking module that is being included
+	in the bigfatwifi module because it is needed by the rt73usb driver.
+	However if this module is already included in your kernel
+	you don't need and should not compile this as part of the bigfatwifi module.
+	This will be auto-selected by rt73usb
+
+config EEPROM_93
+	bool "enable eeprom for certain devices (required by rtl8187L)"
+	---help---
+	I have really no idea why this is needed but the module won't load
+	without it if you have included rtl8187. 
+	Anyways, it is better to inlcude it than not to.
+	This will NOT be auto-selected. You need to do this yourself.

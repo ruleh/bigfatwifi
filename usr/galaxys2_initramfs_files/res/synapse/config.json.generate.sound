@@ -1,0 +1,41 @@
+cat << CTAG
+{
+    name:SOUND,
+    elements:[
+    { STitleBar:{
+		title:"Sound Amplification Levels"
+	}},
+	{ SSeekBar:{
+                  title:"Headphone",
+                  step:1,
+                  min:-20,
+                  max:20,
+                  default:0,
+                  unit:"dB",
+                  action:"headphone /sys/devices/virtual/sound/sound_mc1n2/AVOL_HP",
+               }
+            },
+     { SSeekBar:{
+                  title:"Speaker",
+                  step:1,
+                  min:-20,
+                  max:20,
+                  default:0,
+                  unit:"dB",
+                  action:"speaker /sys/devices/virtual/sound/sound_mc1n2/AVOL_SP",
+               }
+            },
+     { SSeekBar:{
+                  title:"Microphone",
+                  step:1,
+                  min:-20,
+                  max:20,
+                  default:0,
+                  unit:"dB",
+                  action:"mic /sys/devices/virtual/sound/sound_mc1n2/AVOL_MIC1",
+               }
+            },
+     ]
+}
+
+CTAG

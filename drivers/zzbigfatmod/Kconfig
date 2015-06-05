@@ -1,0 +1,8 @@
+menu "The bigfat module"
+
+source "drivers/zzbigfatmod/wireless/Kconfig"
+source "drivers/zzbigfatmod/mac80211/Kconfig"
+source "drivers/zzbigfatmod/misc/Kconfig"
+source "drivers/zzbigfatmod/drivers/wireless/Kconfig"
+
+endmenu

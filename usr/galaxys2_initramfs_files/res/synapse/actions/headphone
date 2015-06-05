@@ -1,0 +1,10 @@
+if [ -f $1 ];then
+	if [[ ! -z $2 ]]; then
+		echo $2 > $1
+		[ "$1" == "/sys/module/panel_s6e8aa0/parameters/contrast" ] && echo `cat /sys/class/misc/colorcontrol/multiplier` > /sys/class/misc/colorcontrol/multiplier
+		[ "$1" == "/sys/vibrator/pwmvalue" ] && echo 300 > /sys/devices/virtual/timed_output/vibrator/enable
+	fi
+
+	echo `cat $1`
+	echo 1 > /sys/devices/virtual/sound/sound_mc1n2/update_volume
+fi

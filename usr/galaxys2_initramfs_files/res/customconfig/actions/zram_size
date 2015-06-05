@@ -1,0 +1,14 @@
+#!/system/bin/sh
+
+if [ "a$2" != "a" ];then
+  zram_size=$2
+fi
+
+mount -o remount,rw /
+
+echo "1" > /sys/block/zram0/reset;
+echo ${zram_size}000000 > /sys/block/zram0/disksize;
+
+mount -o remount,ro /
+
+echo $zram_size
