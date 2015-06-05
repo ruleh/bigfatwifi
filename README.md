@@ -7,8 +7,9 @@ How to use:
 -Change the kernel version in this kernel's makefile to match your kernel's version
 -run "make menuconfig" and set up the module
 -run "make drivers/zzbigfatmod/bigfatwifi.ko" to make the module
--------------------------------------------------------------------------------------------
+
 Some info
+-------------------------------------------------------------------------------------------
 Run "make drivers/zzbigfatmod/bigfatwifi.ko" from the kernel directory to build the module.
 Run "make menuconfig" before building the module to ensure that all your settings are right.
 There is a seperate section for the bigfatwifi module.
@@ -18,13 +19,15 @@ Other than that, this is what it is.
 I have also included a crosscompiler in case yours doesn't work (because of standards etc).
 Also rebuild your current kernel with cfg80211 set as a module.
 (if not already present, add led support -->find it in menuconfig)
--------------------------------------------------------------------------------------------
+
 KNOWN AND POTENTIAL PROBLEMS:
+-------------------------------------------------------------------------------------------
 --some kernel versions might change some values and cause the module to fail to compile
 --some crosscompilers don't compile the module
 --some kernels might need you to disable some drivers because they are allready included.
--------------------------------------------------------------------------------------------
+
 Add a driver
+-------------------------------------------------------------------------------------------
 If you want to add a driver or two yourself, here is how to:
 --Makefile
 It says quite a lot by itself (take a good look at it),
