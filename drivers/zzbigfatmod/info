@@ -58,6 +58,7 @@ If you want to add a driver or two yourself, here is how to:
 	Also you might need to change some functions or structures to extern type so the
 	init/exit file can access it and register the device.
 	You also need to change the name of the driver in the driver table (?).
+	
 --Kconfig
 	You need to add an entry to enable/disable your driver.
 	This is actually not needed but will be important later on when I or someone else
