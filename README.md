@@ -8,6 +8,7 @@ How to use:
 -run "make menuconfig" and set up the module
 -run "make drivers/zzbigfatmod/bigfatwifi.ko" to make the module
 -------------------------------------------------------------------------------------------
+Some info
 Run "make drivers/zzbigfatmod/bigfatwifi.ko" from the kernel directory to build the module.
 Run "make menuconfig" before building the module to ensure that all your settings are right.
 There is a seperate section for the bigfatwifi module.
@@ -23,6 +24,7 @@ KNOWN AND POTENTIAL PROBLEMS:
 --some crosscompilers don't compile the module
 --some kernels might need you to disable some drivers because they are allready included.
 -------------------------------------------------------------------------------------------
+Add a driver
 If you want to add a driver or two yourself, here is how to:
 --Makefile
 It says quite a lot by itself (take a good look at it),
