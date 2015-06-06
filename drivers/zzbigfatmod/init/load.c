@@ -2,6 +2,9 @@
 ** All init and exit functions are defined here in one place
 ** Note that no init function should return 0.
 ** Only use return for errors. 
+**
+**the included .c files need to be removed in the near future
+**and be replaced by .h files included in noheader.h
 */
 #include "../wireless/lib80211.c"
 #include "../wireless/core.c"
