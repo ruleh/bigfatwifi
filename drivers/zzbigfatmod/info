@@ -24,7 +24,7 @@ KNOWN AND POTENTIAL PROBLEMS:
 
 --some kernel versions might change some values and cause the module to fail to compile
 --some crosscompilers don't compile the module
---some kernels might need you to disable some drivers because they are allready included.
+--some kernels might need you to disable some drivers because they are already included.
 
 -------------------------------------------------------------------------------------------
 If you want to add a driver or two yourself, here is how to:
