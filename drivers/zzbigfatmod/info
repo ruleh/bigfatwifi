@@ -6,26 +6,19 @@
 Bigfatwifi -- a collection of your favourite wifi drivers in one module with all the dependencies resolved
 
 -------------------------------------------------------------------------------------------
-How to use:
--Copy your kernels config over to this kernel's directory
--Change the kernel version in this kernel's makefile to match your kernel's version
--run "make menuconfig" and set up the module
--run "make drivers/zzbigfatmod/bigfatwifi.ko" to make the module
-
+Currently in the module:
+	--cfg80211
+	--mac80211
+	--rt2x00
+	   --rt73usb
+	   --rt2500usb
+	   --rt2800usb
+	--rtl8187
+	--ath9k_htc
+	(--crc-itu-t)
+	(--eeprom_93cx6)
 -------------------------------------------------------------------------------------------
-Run "make drivers/zzbigfatmod/bigfatwifi.ko" from the kernel directory to build the module.
-
-Run "make menuconfig" before building the module to ensure that all your settings are right.
-There is a seperate section for the bigfatwifi module.
-If you want to inlcude something, mark with with (y) and not (m).
-This is because the makefile says so...
-
-Other than that, this is what it is.
-
-I have also included a crosscompiler in case yours doesn't work (because of standards etc).
-
-Also rebuild your current kernel with cfg80211 set as a module.
-(if not already present, add led support -->find it in menuconfig)
+See guide on how to use.
 -------------------------------------------------------------------------------------------
 KNOWN AND POTENTIAL PROBLEMS:
 

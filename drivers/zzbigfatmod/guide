@@ -1,0 +1,105 @@
+===========================================================================================
+			|_) | |¯¯ |¯¯|¯| ¯¯|¯¯ | | | | |¯¯ |
+			|_) | |_| |¯ |¯|   |   |_|_| | |¯  | 	--the guide
+===========================================================================================
+
+Content
+	--Intro
+	--Kernel
+	--Bigfatwifi
+	--Using
+	--Troubleshooting
+
+--------------------------------------------------------------------------------------------
+Intro
+
+The bigfatwifi kernel module is a combination of wifi drivers and their dependencies.
+It includes cfg80211, mac80211, drivers, and some small bits and pieces.
+This guide will show you how to make the most of the bigfatwifi module.
+
+--------------------------------------------------------------------------------------------
+Kernel
+
+The bigfatwifi module requires 2 small changes in your kernel.
+Therefore you need to recompile your kernel and flash it on your phone
+
+==First get the kernel sources for your favourite kernel.
+  This shouldn't be too hard. Simply google "(kernel_name) source"
+
+==Navigate to arch/arm/config/ and find a _defconfig file that matches your phone.
+  It should be something like something_phonename_defconfig or similar.
+  If you can't find it, ask your kernel developer very politely to help you.
+
+==Open a terminal in the root of your kernel sources.
+==Run the following commands
+	export ARCH=arm
+	export SUBARCH=arm
+	export CROSS_COMPILE=/path/to/bigfatwifi/gcc-linaro-arm-linux-gnueabi-4.7/bin/arm-linux-gnueabi-
+
+==Run 	"make some_name_defconfig" 	(the defconfig for your phone)
+
+==Open .config in your kernel directory with your favourite text editor.
+	--Replace the line 	"CONFIG_CFG80211=y"		with	"CONFIG_CFG80211=m"
+	--Replace the line 	"CONFIG_NEW_LEDS not set"	with 	"CONFIG_NEW_LEDS=y"
+	--Replace the line  	"CONFIG_LEDS_CLASS not set"	with 	"CONFIG_LEDS_CLASS=y"
+
+==Run "make" and wait until it is finished
+==Run "make modules"
+
+(If at any point, you get errors about ramdisks, see the troubleshooting section at the end.)
+
+==Make 2 directories somewhere.
+==Run "cp arch/arm/boot/zImage /path/to/directory1".
+==Run "find . -name '*ko' -exec cp '{}' /path/to/directory2 \;".
+
+==Download the flashable zip for your kernel.
+==Replace the content of it with your files from directory1 and directory2 
+  --directories to look at in the zip:
+	--system/lib/modules
+	--boot
+	--.
+
+NOTE: this is different for every kernel, I would advise to look up a few other guides as well if you have troubles compiling your kernel from source and politely ask your kernel developer for help
+
+--------------------------------------------------------------------------------------------
+Bigfatwifi
+
+==Copy your .config from your kernel into the root of the bigfatwifi kernel folder.
+==Then run "make menuconfig" and set up the module to your liking. 
+	--most settings are explained in menuconfig
+==To include something, you have to set it to (y) not to (m).
+	--save and exit after you are finished
+==Edit the bigfat kernel makefile to match your kernel version.
+==Run "make drivers/zzbigfatmod/bigfatwifi.ko" to build the module.
+
+==Copy the compiled module from /drivers/zzbigfatmod/ to the flashable zip for your kernel.
+
+--------------------------------------------------------------------------------------------
+Usage
+
+==Flash the zip.
+==In android:
+	--run "insmod /system/lib/modules/bigfatwifi.ko" as root.
+	--Now connect your wifi dongle to your phone and use it.
+
+=Usage with RfA
+	--Copy the 3 scripts to your phone and set them in RfA. 
+	--Set the monitor intterface to wlan0 (or whatever it is called) and enjoy.
+
+--------------------------------------------------------------------------------------------
+Troubleshooting
+
+--ramdisk
+	-Extract the ramdisk from the zImage or boot.img of your existing kernel.
+		->there are many ways of doing this.
+	-Copy the extracted ramdisk to the usr folder of your kernel.
+	-Set the ramdisk in the initramfs_path of your .config file.
+
+--invalid module format (generic error)
+	-make sure that the kernel version is the same for your kernel and the bigfat module. 
+	 You can set this in the makefile in the kernel directory of the bigfatmodule
+	-make sure that you selected every needed feature in the bigfat module. 
+	 sometimes you need to remove a feature because it is already in the kernel.
+
+--kernel stops compiling, no error, returns to shell
+	 -run "make -j1" instead of "make"
