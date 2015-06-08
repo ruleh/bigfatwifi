@@ -38,7 +38,7 @@ int cfg80211_rdev_list_generation;
 DEFINE_MUTEX(cfg80211_mutex);
 
 /* for debugfs */
-static struct dentry *ieee80211_debugfs_dir;
+struct dentry *ieee80211_debugfs_dir;
 
 /* for the cleanup, scan and event works */
 struct workqueue_struct *cfg80211_wq;
@@ -759,7 +759,7 @@ static struct device_type wiphy_type = {
 	.name	= "wlan",
 };
 
-static int cfg80211_netdev_notifier_call(struct notifier_block * nb,
+extern int cfg80211_netdev_notifier_call(struct notifier_block * nb,
 					 unsigned long state,
 					 void *ndev)
 {
@@ -971,7 +971,7 @@ static int cfg80211_netdev_notifier_call(struct notifier_block * nb,
 	return NOTIFY_DONE;
 }
 
-static struct notifier_block cfg80211_netdev_notifier = {
+extern struct notifier_block cfg80211_netdev_notifier = {
 	.notifier_call = cfg80211_netdev_notifier_call,
 };
 
@@ -989,7 +989,7 @@ static void __net_exit cfg80211_pernet_exit(struct net *net)
 	rtnl_unlock();
 }
 
-static struct pernet_operations cfg80211_pernet_ops = {
+extern struct pernet_operations cfg80211_pernet_ops = {
 	.exit = cfg80211_pernet_exit,
 };
 

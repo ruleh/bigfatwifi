@@ -4,14 +4,17 @@
 ** Only use return for errors. 
 **
 **the included .c files need to be removed in the near future
-**and be replaced by .h files included in noheader.h
+**and be replaced by .h files and declarations included in noheader.h
 */
-#include "../wireless/lib80211.c"
-#include "../wireless/core.c"
-#include "../wireless/wext-core.c"
 #include "../mac80211/main.c"
 #include "noheader.h"
-
+#include <linux/usb.h>
+#include <net/net_namespace.h>
+#include <linux/netdevice.h>
+#include <linux/debugfs.h>
+#include <linux/workqueue.h>
+#include <linux/list.h>
+#include <net/lib80211.h>
 
 MODULE_AUTHOR("ruleh");
 MODULE_DESCRIPTION("Bigfatwifi--a collection of your favourite wifi drivers");
@@ -22,9 +25,6 @@ static int __init bigfat_init(void)
 {
 
 /*cfg80211 init*/
-	pr_info(DRV_DESCRIPTION "\n");
-
-
 
 	int err;
 
@@ -55,6 +55,7 @@ static int __init bigfat_init(void)
 		goto out_fail_wq;
 
 
+	lib80211_register_crypto_ops(&lib80211_crypt_null);
 
 /*mac80211 init*/
 	struct sk_buff *skb;
@@ -96,6 +97,9 @@ static int __init bigfat_init(void)
 /*ath9k*/
 	usb_register(&ath9k_hif_usb_driver);
 	ieee80211_rate_control_register(&ath_rate_ops);
+
+/*misc --everything that has no other place*/
+	pr_info("Bigfatwifi-- all of your favourite wifi drivers in one module" "\n");
 
 
 	return 0;
@@ -156,7 +160,8 @@ static void __exit bigfat_exit(void)
 
 	rcu_barrier();
 
-
+/*lib80211*/
+	lib80211_unregister_crypto_ops(&lib80211_crypt_null);
 
 /*cfg80211 exit*/
 	debugfs_remove(ieee80211_debugfs_dir);
@@ -166,8 +171,6 @@ static void __exit bigfat_exit(void)
 	regulatory_exit();
 	unregister_pernet_device(&cfg80211_pernet_ops);
 	destroy_workqueue(cfg80211_wq);
-	lib80211_unregister_crypto_ops(&lib80211_crypt_null);
-	BUG_ON(!list_empty(&lib80211_crypto_algs));
 }
 
 

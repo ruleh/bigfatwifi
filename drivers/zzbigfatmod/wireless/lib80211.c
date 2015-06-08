@@ -186,7 +186,7 @@ void lib80211_crypt_delayed_deinit(struct lib80211_crypt_info *info,
 }
 EXPORT_SYMBOL(lib80211_crypt_delayed_deinit);
 
-int lib80211_register_crypto_ops(struct lib80211_crypto_ops *ops)
+extern int lib80211_register_crypto_ops(struct lib80211_crypto_ops *ops)
 {
 	unsigned long flags;
 	struct lib80211_crypto_alg *alg;
@@ -208,7 +208,7 @@ int lib80211_register_crypto_ops(struct lib80211_crypto_ops *ops)
 }
 EXPORT_SYMBOL(lib80211_register_crypto_ops);
 
-int lib80211_unregister_crypto_ops(struct lib80211_crypto_ops *ops)
+extern int lib80211_unregister_crypto_ops(struct lib80211_crypto_ops *ops)
 {
 	struct lib80211_crypto_alg *alg;
 	unsigned long flags;
@@ -259,7 +259,7 @@ static void lib80211_crypt_null_deinit(void *priv)
 {
 }
 
-static struct lib80211_crypto_ops lib80211_crypt_null = {
+extern struct lib80211_crypto_ops lib80211_crypt_null = {
 	.name = "NULL",
 	.init = lib80211_crypt_null_init,
 	.deinit = lib80211_crypt_null_deinit,

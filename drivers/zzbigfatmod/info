@@ -23,8 +23,16 @@ See guide on how to use.
 KNOWN AND POTENTIAL PROBLEMS:
 
 --some kernel versions might change some values and cause the module to fail to compile
+	--very specific
+
 --some crosscompilers don't compile the module
+	--this should be nearly solved by now for some compilers
+
 --some kernels might need you to disable some drivers because they are already included.
+	--if you have a working cgf80211 stack, you can disable cfg80211 in the bigfat module
+
+--lib80211 doesn't seem to work properly. No one uses this, right?
+	--if someone needs this urgently tell me and I will finish this quicker
 
 -------------------------------------------------------------------------------------------
 If you want to add a driver or two yourself, here is how to:

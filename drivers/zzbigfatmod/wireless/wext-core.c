@@ -352,7 +352,7 @@ static void __net_exit wext_pernet_exit(struct net *net)
 	skb_queue_purge(&net->wext_nlevents);
 }
 
-static struct pernet_operations wext_pernet_ops = {
+extern struct pernet_operations wext_pernet_ops = {
 	.init = wext_pernet_init,
 	.exit = wext_pernet_exit,
 };

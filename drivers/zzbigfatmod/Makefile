@@ -8,27 +8,28 @@ obj-m		+= bigfatwifi.o
 bigfatwifi-y	+= init/load.o
 
 #---------------------------------------------------------------------------------
-#Misc.
+#misc.
 
 bigfatwifi-$(CONFIG_EEPROM_93) 			+= misc/eeprom_93cx6.o
 bigfatwifi-$(CONFIG_CRC_ITU_T) 			+= misc/crc-itu-t.o
 #---------------------------------------------------------------------------------
 #cfg80211
 
-#bigfatwifi-$(CONFIG_LIB80211)			+= wireless/lib80211.o
+bigfatwifi-$(CONFIG_LIB80211)			+= wireless/lib80211.o
 bigfatwifi-$(CONFIG_LIB80211_CRYPT_WEP) 	+= wireless/lib80211_crypt_wep.o
 bigfatwifi-$(CONFIG_LIB80211_CRYPT_CCMP)	+= wireless/lib80211_crypt_ccmp.o
 bigfatwifi-$(CONFIG_LIB80211_CRYPT_TKIP)	+= wireless/lib80211_crypt_tkip.o
 
-#bigfatwifi-$(CONFIG_WEXT_CORE)			+= wireless/wext-core.o
+bigfatwifi-$(CONFIG_WEXT_CORE)			+= wireless/wext-core.o
 bigfatwifi-$(CONFIG_WEXT_PROC) 			+= wireless/wext-proc.o
 bigfatwifi-$(CONFIG_WEXT_SPY)			+= wireless/wext-spy.o
 bigfatwifi-$(CONFIG_WEXT_PRIV)			+= wireless/wext-priv.o
 
-#bigfatwifi-y				+= wireless/core.o
+
 bigfatwifi-$(CONFIG_CFG80211) 		+= wireless/sysfs.o   wireless/radiotap.o \
 			  		   wireless/util.o    wireless/reg.o \
-			  		   wireless/scan.o    wireless/nl80211.o 
+			  		   wireless/scan.o    wireless/nl80211.o \
+					   wireless/core.o
 
 bigfatwifi-$(CONFIG_CFG80211)		+= wireless/mlme.o    wireless/ibss.o \
 					   wireless/sme.o     wireless/chan.o \
@@ -40,13 +41,12 @@ bigfatwifi-$(CONFIG_CFG80211_WEXT) 		+= wireless/wext-compat.o \
 bigfatwifi-$(CONFIG_CFG80211_INTERNAL_REGDB) 	+= wireless/regdb.o
 
 
-#the commented ones are included in load.o
-#I know it isn't a good method if doing things
-
-
 ccflags-y += -D__CHECK_ENDIAN__
 #----------------------------------------------------------------------------------------
 #mac80211
+
+#this one is still included in load.c. It will be removed and added correctly soon.
+#bigfatwifi-$(CONFIG_MAC80211)		+= mac80211/main.o
 
 bigfatwifi-$(CONFIG_MAC80211)		+= mac80211/status.o \
  				 	   mac80211/sta_info.o \
@@ -107,7 +107,6 @@ bigfatwifi-$(CONFIG_MAC80211_RC_PID) 		+= $(rc80211_pid-y)
 bigfatwifi-$(CONFIG_MAC80211_RC_MINSTREL) 	+= $(rc80211_minstrel-y)
 bigfatwifi-$(CONFIG_MAC80211_RC_MINSTREL_HT)    += $(rc80211_minstrel_ht-y)
 
-#bigfatwifi-y 					+= mac80211/main.o
 #----------------------------------------------------------------------------------------
 #ralink
 
@@ -127,7 +126,6 @@ bigfatwifi-$(CONFIG_RT2500USB)			+= drivers/wireless/rt2x00/rt2500usb.o
 bigfatwifi-$(CONFIG_RT73USB)			+= drivers/wireless/rt2x00/rt73usb.o
 bigfatwifi-$(CONFIG_RT2800USB)			+= drivers/wireless/rt2x00/rt2800usb.o
 
-#some modules need to be loaded manually
 #----------------------------------------------------------------------------------------
 #realtek
 
@@ -188,16 +186,12 @@ bigfatwifi-$(CONFIG_ATH9K_HTC) 		+= drivers/wireless/ath/ath9k/htc_hst.o \
 				 	   drivers/wireless/ath/ath9k/htc_drv_gpio.o
 
 bigfatwifi-$(CONFIG_ATH9K_HTC_DEBUGFS) 	+= drivers/wireless/ath/ath9k/htc_drv_debug.o
-
-
-
-
 #----------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------
 #add more drivers above			||<---try to keep things between these lines--->||
 #
 #also add the driver's init/exit functions to the init/exit file (load.c).
 #----------------------------------------------------------------------------------------
-#some files are commented out becauce either they are not needed (e.g. pci stuff) or
+#some files (only mac80211/main.c) are commented out
 #because they still use the old method for init/exit and are therefore included in load.c
 #----------------------------------------------------------------------------------------
