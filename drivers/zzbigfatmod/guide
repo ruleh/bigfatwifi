@@ -79,6 +79,8 @@ Usage
 
 ==Flash the zip.
 ==In android:
+	--download the firmware for your wifi dognle (from any source)
+	   --copy it to /system/vendor/firmware
 	--run "insmod /system/lib/modules/bigfatwifi.ko" as root.
 	--Now connect your wifi dongle to your phone and use it.
 

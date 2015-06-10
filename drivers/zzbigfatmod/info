@@ -8,6 +8,8 @@ Bigfatwifi -- a collection of your favourite wifi drivers in one module with all
 -------------------------------------------------------------------------------------------
 Currently in the module:
 	--cfg80211
+	--lib80211
+	--wext
 	--mac80211
 	--rt2x00
 	   --rt73usb
@@ -32,6 +34,7 @@ KNOWN AND POTENTIAL PROBLEMS:
 	--if you have a working cgf80211 stack, you can disable cfg80211 in the bigfat module
 
 --lib80211 doesn't seem to work properly. No one uses this, right?
+	--it works only the first time when loading the module (after each reboot)
 	--if someone needs this urgently tell me and I will finish this quicker
 
 -------------------------------------------------------------------------------------------
@@ -46,12 +49,13 @@ If you want to add a driver or two yourself, here is how to:
 --init/exit (load.c)
 	You have to cut out the init and exit functions of your driver and paste them
 	here (load.c). You might need to declare some functions etc which you can do
-	in the noheader.h file in the same directory.
+	in the noheader.h file in the same directory. See both files for some more info.
 
 --misc
 	If your driver depends on other modules and special symbols which are not part
 	of the driver itself, you can include it in the misc folder and point to it in
-	the makefile.
+	the makefile. If this has any init/exit functions, do the same you would do with
+	the drivers (see below).
 
 --drivers
 	Here you have to get rid of the init/exit functions and rename the module_params
@@ -64,3 +68,5 @@ If you want to add a driver or two yourself, here is how to:
 	You need to add an entry to enable/disable your driver.
 	This is actually not needed but will be important later on when I or someone else
 	decides to make a major overhaul of this module.
+	If possible remove the dependencies from Kconfig to allow the module being built
+	without actually meeting those dependencies (since they might be allready included).
