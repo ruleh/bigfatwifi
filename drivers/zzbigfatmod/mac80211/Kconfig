@@ -1,6 +1,5 @@
 config MAC80211
 	tristate "Generic IEEE 802.11 Networking Stack (mac80211)"
-	depends on CFG80211
 	select CRYPTO
 	select CRYPTO_ARC4
 	select CRYPTO_AES
@@ -20,9 +19,8 @@ config MAC80211
 		But anyways, some settings might have no effect at all where as others
 		WILL break stuff.
 		You have been warned :)
- 	  
-comment "CFG80211 needs to be enabled for MAC80211"
-	depends on CFG80211=n
+		
+		Also this can be compiled independent of cfg80211-->but might not work
 
 if MAC80211 != n
 

@@ -2419,7 +2419,7 @@ config GELIC_WIRELESS
 	help
 	  This option adds the support for the wireless feature of PS3.
 	  If you have the wireless-less model of PS3 or have no plan to
-	  use wireless feature, disabling this option saves memory.  As
+	  use g feature, disabling this option saves memory.  As
 	  the driver automatically distinguishes the models, you can
 	  safely enable this option even if you have a wireless-less model.
 
@@ -2932,7 +2932,7 @@ endif # NETDEV_10000
 
 source "drivers/net/tokenring/Kconfig"
 
-source "drivers/net/wireless/Kconfig"
+#source "drivers/net/wireless/Kconfig"
 
 source "drivers/net/wimax_cmc/Kconfig"
 

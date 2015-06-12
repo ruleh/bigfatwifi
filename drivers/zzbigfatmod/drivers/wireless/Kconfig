@@ -15,12 +15,15 @@ menuconfig WLAN
 
 	  http://wireless.kernel.org/en/users/Drivers
 
-	  Note: Only 3 drivers are included as of yet ;)
+	  Note: Only a few drivers are included as of yet ;)
 
 if WLAN
 
-
-source "drivers/net/wireless/rtl818x/Kconfig"
+source "drivers/zzbigfatmod/drivers/wireless/ath/Kconfig"
+source "drivers/zzbigfatmod/drivers/wireless/iwlwifi/Kconfig"
+source "drivers/zzbigfatmod/drivers/wireless/iwlegacy/Kconfig"
+source "drivers/zzbigfatmod/drivers/wireless/rt2x00/Kconfig"
+source "drivers/zzbigfatmod/drivers/wireless/rtl818x/Kconfig"
 
 
 config MAC80211_HWSIM
@@ -41,12 +44,6 @@ config WIFI_CONTROL_FUNC
 	bool "Enable WiFi control function abstraction"
 	help
 	  Enables Power/Reset/Carddetect function abstraction
-
-source "drivers/net/wireless/ath/Kconfig"
-source "drivers/net/wireless/iwlwifi/Kconfig"
-source "drivers/net/wireless/iwlegacy/Kconfig"
-source "drivers/net/wireless/rt2x00/Kconfig"
-
 
 
 endif # WLAN

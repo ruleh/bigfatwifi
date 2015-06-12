@@ -19,6 +19,12 @@ Currently in the module:
 	--ath9k_htc
 	(--crc-itu-t)
 	(--eeprom_93cx6)
+
+Most of these can be selected independently of each other.
+However this can cause some serious problems therefore it is better to select all of them.
+
+On rare cases you might want to disable cfg80211 so you can use the module without recompiling
+the kernel (since it would use the inbuilt cfg80211).  <--still don't do this.
 -------------------------------------------------------------------------------------------
 See guide on how to use.
 -------------------------------------------------------------------------------------------

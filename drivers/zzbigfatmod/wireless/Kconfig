@@ -25,8 +25,8 @@ config CFG80211
 	  
 	  THIS IS THE MAIN PART OF THE MODULE
 	  you should select this as inbuilt (y) because that's how I did the module.
-	  
-	  NOTE: some other settigs might or might not make changes (including this)
+
+	  You can disable this if you want to and still compile the other stuff.
 
 config NL80211_TESTMODE
 	bool "nl80211 testmode command"

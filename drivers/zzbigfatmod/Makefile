@@ -11,7 +11,9 @@ bigfatwifi-y	+= init/load.o
 #misc.
 
 bigfatwifi-$(CONFIG_EEPROM_93) 			+= misc/eeprom_93cx6.o
-bigfatwifi-$(CONFIG_CRC_ITU_T) 			+= misc/crc-itu-t.o
+bigfatwifi-$(CONFIG_CRC_ITU_ST) 		+= misc/crc-itu-t.o
+
+ccflags-y 					+= -D__CHECK_ENDIAN__
 #---------------------------------------------------------------------------------
 #cfg80211
 
@@ -41,12 +43,8 @@ bigfatwifi-$(CONFIG_CFG80211_WEXT) 		+= wireless/wext-compat.o \
 bigfatwifi-$(CONFIG_CFG80211_INTERNAL_REGDB) 	+= wireless/regdb.o
 
 
-ccflags-y += -D__CHECK_ENDIAN__
 #----------------------------------------------------------------------------------------
 #mac80211
-
-#this one is still included in load.c. It will be removed and added correctly soon.
-#bigfatwifi-$(CONFIG_MAC80211)		+= mac80211/main.o
 
 bigfatwifi-$(CONFIG_MAC80211)		+= mac80211/main.o \
 					   mac80211/status.o \
@@ -193,6 +191,4 @@ bigfatwifi-$(CONFIG_ATH9K_HTC_DEBUGFS) 	+= drivers/wireless/ath/ath9k/htc_drv_de
 #
 #also add the driver's init/exit functions to the init/exit file (load.c).
 #----------------------------------------------------------------------------------------
-#some files (only mac80211/main.c) are commented out
-#because they still use the old method for init/exit and are therefore included in load.c
 #----------------------------------------------------------------------------------------
