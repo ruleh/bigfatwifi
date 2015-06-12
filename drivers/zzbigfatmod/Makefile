@@ -48,7 +48,8 @@ ccflags-y += -D__CHECK_ENDIAN__
 #this one is still included in load.c. It will be removed and added correctly soon.
 #bigfatwifi-$(CONFIG_MAC80211)		+= mac80211/main.o
 
-bigfatwifi-$(CONFIG_MAC80211)		+= mac80211/status.o \
+bigfatwifi-$(CONFIG_MAC80211)		+= mac80211/main.o \
+					   mac80211/status.o \
  				 	   mac80211/sta_info.o \
  					   mac80211/wep.o \
  					   mac80211/wpa.o \

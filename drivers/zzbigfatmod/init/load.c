@@ -6,7 +6,6 @@
 **the included .c files need to be removed in the near future
 **and be replaced by .h files and declarations included in noheader.h
 */
-#include "../mac80211/main.c"
 #include "noheader.h"
 #include <linux/usb.h>
 #include <net/net_namespace.h>

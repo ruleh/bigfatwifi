@@ -6,6 +6,10 @@
 #include "../wireless/nl80211.h"
 #include "../wireless/reg.h"
 #include "../wireless/core.h"
+#include "../mac80211/ieee80211_i.h"
+#include "../mac80211/driver-ops.h"
+#include "../mac80211/rate.h"
+#include "../mac80211/mesh.h"
 
 /*cfg80211*/
 extern struct pernet_operations cfg80211_pernet_ops;
