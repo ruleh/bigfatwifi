@@ -1,0 +1,18 @@
+These files are here to make the module more independent of the rest of the kernel
+As a result this can be loaded on more kernels with less changes needed.
+Also it will get a lot bigger (maybe even bigger than dhd.ko).
+I might as well just include the whole kernel in this module.
+Right now this is basically uhmm....
+...who knows.
+But no matter what it is, it will take a lot of time.
+(using 3.15 as a reference)
+
+workqueue.c	--done !
+workqueue.h	--hell no!
+kref.h 		--no change needed?
+softirq.c	--done !
+delay.h 	--no change needed?
+sched.c         --done !
+kernel.h        --have some mercy
+skbuff.c	--done !
+skbuff.h	--forgive me please
