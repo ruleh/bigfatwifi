@@ -16,3 +16,4 @@ sched.c         --done !
 kernel.h        --have some mercy
 skbuff.c	--done !
 skbuff.h	--forgive me please
+platform.c	--not yet ----it should be in platform_device.h
