@@ -26,10 +26,9 @@
 #define to_platform_driver(drv)	(container_of((drv), struct platform_driver, \
 				 driver))
 
-struct device platform_bus = {
+extern struct device platform_bus = {
 	.init_name	= "platform",
 };
-EXPORT_SYMBOL_GPL(platform_bus);
 
 /**
  * platform_get_resource - get a resource for a device
@@ -37,7 +36,7 @@ EXPORT_SYMBOL_GPL(platform_bus);
  * @type: resource type
  * @num: resource index
  */
-struct resource *platform_get_resource(struct platform_device *dev,
+extern struct resource *platform_get_resource(struct platform_device *dev,
 				       unsigned int type, unsigned int num)
 {
 	int i;
@@ -50,20 +49,18 @@ struct resource *platform_get_resource(struct platform_device *dev,
 	}
 	return NULL;
 }
-EXPORT_SYMBOL_GPL(platform_get_resource);
 
 /**
  * platform_get_irq - get an IRQ for a device
  * @dev: platform device
  * @num: IRQ number index
  */
-int platform_get_irq(struct platform_device *dev, unsigned int num)
+extern int platform_get_irq(struct platform_device *dev, unsigned int num)
 {
 	struct resource *r = platform_get_resource(dev, IORESOURCE_IRQ, num);
 
 	return r ? r->start : -ENXIO;
 }
-EXPORT_SYMBOL_GPL(platform_get_irq);
 
 /**
  * platform_get_resource_byname - get a resource for a device by name
@@ -71,7 +68,7 @@ EXPORT_SYMBOL_GPL(platform_get_irq);
  * @type: resource type
  * @name: resource name
  */
-struct resource *platform_get_resource_byname(struct platform_device *dev,
+extern struct resource *platform_get_resource_byname(struct platform_device *dev,
 					      unsigned int type,
 					      const char *name)
 {
@@ -85,28 +82,27 @@ struct resource *platform_get_resource_byname(struct platform_device *dev,
 	}
 	return NULL;
 }
-EXPORT_SYMBOL_GPL(platform_get_resource_byname);
-
+ 
 /**
  * platform_get_irq - get an IRQ for a device
  * @dev: platform device
  * @name: IRQ name
  */
-int platform_get_irq_byname(struct platform_device *dev, const char *name)
+extern int platform_get_irq_byname(struct platform_device *dev, const char *name)
 {
 	struct resource *r = platform_get_resource_byname(dev, IORESOURCE_IRQ,
 							  name);
 
 	return r ? r->start : -ENXIO;
 }
-EXPORT_SYMBOL_GPL(platform_get_irq_byname);
+ 
 
 /**
  * platform_add_devices - add a numbers of platform devices
  * @devs: array of platform devices to add
  * @num: number of platform devices in array
  */
-int platform_add_devices(struct platform_device **devs, int num)
+extern int platform_add_devices(struct platform_device **devs, int num)
 {
 	int i, ret = 0;
 
@@ -121,7 +117,6 @@ int platform_add_devices(struct platform_device **devs, int num)
 
 	return ret;
 }
-EXPORT_SYMBOL_GPL(platform_add_devices);
 
 struct platform_object {
 	struct platform_device pdev;
@@ -135,12 +130,11 @@ struct platform_object {
  * Free all memory associated with a platform device.  This function must
  * _only_ be externally called in error cases.  All other usage is a bug.
  */
-void platform_device_put(struct platform_device *pdev)
+extern void platform_device_put(struct platform_device *pdev)
 {
 	if (pdev)
 		put_device(&pdev->dev);
 }
-EXPORT_SYMBOL_GPL(platform_device_put);
 
 static void platform_device_release(struct device *dev)
 {
@@ -162,7 +156,7 @@ static void platform_device_release(struct device *dev)
  * Create a platform device object which can have other objects attached
  * to it, and which will have attached objects freed when it is released.
  */
-struct platform_device *platform_device_alloc(const char *name, int id)
+extern struct platform_device *platform_device_alloc(const char *name, int id)
 {
 	struct platform_object *pa;
 
@@ -177,7 +171,6 @@ struct platform_device *platform_device_alloc(const char *name, int id)
 
 	return pa ? &pa->pdev : NULL;
 }
-EXPORT_SYMBOL_GPL(platform_device_alloc);
 
 /**
  * platform_device_add_resources - add resources to a platform device
@@ -189,7 +182,7 @@ EXPORT_SYMBOL_GPL(platform_device_alloc);
  * associated with the resources will be freed when the platform device is
  * released.
  */
-int platform_device_add_resources(struct platform_device *pdev,
+extern int platform_device_add_resources(struct platform_device *pdev,
 				  const struct resource *res, unsigned int num)
 {
 	struct resource *r = NULL;
@@ -205,7 +198,6 @@ int platform_device_add_resources(struct platform_device *pdev,
 	pdev->num_resources = num;
 	return 0;
 }
-EXPORT_SYMBOL_GPL(platform_device_add_resources);
 
 /**
  * platform_device_add_data - add platform-specific data to a platform device
@@ -217,7 +209,7 @@ EXPORT_SYMBOL_GPL(platform_device_add_resources);
  * platform_data pointer.  The memory associated with the platform data
  * will be freed when the platform device is released.
  */
-int platform_device_add_data(struct platform_device *pdev, const void *data,
+extern int platform_device_add_data(struct platform_device *pdev, const void *data,
 			     size_t size)
 {
 	void *d = NULL;
@@ -232,7 +224,6 @@ int platform_device_add_data(struct platform_device *pdev, const void *data,
 	pdev->dev.platform_data = d;
 	return 0;
 }
-EXPORT_SYMBOL_GPL(platform_device_add_data);
 
 /**
  * platform_device_add - add a platform device to device hierarchy
@@ -241,7 +232,7 @@ EXPORT_SYMBOL_GPL(platform_device_add_data);
  * This is part 2 of platform_device_register(), though may be called
  * separately _iff_ pdev was allocated by platform_device_alloc().
  */
-int platform_device_add(struct platform_device *pdev)
+extern int platform_device_add(struct platform_device *pdev)
 {
 	int i, ret = 0;
 
@@ -299,7 +290,6 @@ int platform_device_add(struct platform_device *pdev)
 
 	return ret;
 }
-EXPORT_SYMBOL_GPL(platform_device_add);
 
 /**
  * platform_device_del - remove a platform-level device
@@ -309,7 +299,7 @@ EXPORT_SYMBOL_GPL(platform_device_add);
  * resources owned by the device (@dev->resource).  This function must
  * _only_ be externally called in error cases.  All other usage is a bug.
  */
-void platform_device_del(struct platform_device *pdev)
+extern void platform_device_del(struct platform_device *pdev)
 {
 	int i;
 
@@ -325,18 +315,16 @@ void platform_device_del(struct platform_device *pdev)
 		}
 	}
 }
-EXPORT_SYMBOL_GPL(platform_device_del);
 
 /**
  * platform_device_register - add a platform-level device
  * @pdev: platform device we're adding
  */
-int platform_device_register(struct platform_device *pdev)
+extern int platform_device_register(struct platform_device *pdev)
 {
 	device_initialize(&pdev->dev);
 	return platform_device_add(pdev);
 }
-EXPORT_SYMBOL_GPL(platform_device_register);
 
 /**
  * platform_device_unregister - unregister a platform-level device
@@ -346,12 +334,11 @@ EXPORT_SYMBOL_GPL(platform_device_register);
  * and remove it from the subsystem, then we drop reference count by
  * calling platform_device_put().
  */
-void platform_device_unregister(struct platform_device *pdev)
+extern void platform_device_unregister(struct platform_device *pdev)
 {
 	platform_device_del(pdev);
 	platform_device_put(pdev);
 }
-EXPORT_SYMBOL_GPL(platform_device_unregister);
 
 /**
  * platform_device_register_resndata - add a platform-level device with
@@ -367,7 +354,7 @@ EXPORT_SYMBOL_GPL(platform_device_unregister);
  *
  * Returns &struct platform_device pointer on success, or ERR_PTR() on error.
  */
-struct platform_device *platform_device_register_resndata(
+extern struct platform_device *platform_device_register_resndata(
 		struct device *parent,
 		const char *name, int id,
 		const struct resource *res, unsigned int num,
@@ -399,7 +386,6 @@ err:
 
 	return pdev;
 }
-EXPORT_SYMBOL_GPL(platform_device_register_resndata);
 
 static int platform_drv_probe(struct device *_dev)
 {
@@ -434,7 +420,7 @@ static void platform_drv_shutdown(struct device *_dev)
  * platform_driver_register - register a driver for platform-level devices
  * @drv: platform driver structure
  */
-int platform_driver_register(struct platform_driver *drv)
+extern int platform_driver_register(struct platform_driver *drv)
 {
 	drv->driver.bus = &platform_bus_type;
 	if (drv->probe)
@@ -446,17 +432,15 @@ int platform_driver_register(struct platform_driver *drv)
 
 	return driver_register(&drv->driver);
 }
-EXPORT_SYMBOL_GPL(platform_driver_register);
 
 /**
  * platform_driver_unregister - unregister a driver for platform-level devices
  * @drv: platform driver structure
  */
-void platform_driver_unregister(struct platform_driver *drv)
+extern void platform_driver_unregister(struct platform_driver *drv)
 {
 	driver_unregister(&drv->driver);
 }
-EXPORT_SYMBOL_GPL(platform_driver_unregister);
 
 /**
  * platform_driver_probe - register driver for non-hotpluggable device
@@ -475,7 +459,7 @@ EXPORT_SYMBOL_GPL(platform_driver_unregister);
  * Returns zero if the driver registered and bound to a device, else returns
  * a negative error code and with the driver not registered.
  */
-int __init_or_module platform_driver_probe(struct platform_driver *drv,
+extern int __init_or_module platform_driver_probe(struct platform_driver *drv,
 		int (*probe)(struct platform_device *))
 {
 	int retval, code;
@@ -504,7 +488,6 @@ int __init_or_module platform_driver_probe(struct platform_driver *drv,
 		platform_driver_unregister(drv);
 	return retval;
 }
-EXPORT_SYMBOL_GPL(platform_driver_probe);
 
 /**
  * platform_create_bundle - register driver and create corresponding device
@@ -520,7 +503,7 @@ EXPORT_SYMBOL_GPL(platform_driver_probe);
  *
  * Returns &struct platform_device pointer on success, or ERR_PTR() on error.
  */
-struct platform_device * __init_or_module platform_create_bundle(
+extern struct platform_device * __init_or_module platform_create_bundle(
 			struct platform_driver *driver,
 			int (*probe)(struct platform_device *),
 			struct resource *res, unsigned int n_res,
@@ -560,7 +543,6 @@ err_pdev_put:
 err_out:
 	return ERR_PTR(error);
 }
-EXPORT_SYMBOL_GPL(platform_create_bundle);
 
 /* modalias support enables more hands-off userspace setup:
  * (a) environment variable lets new-style hotplug events work once system is
@@ -910,14 +892,13 @@ static const struct dev_pm_ops platform_dev_pm_ops = {
 	USE_PLATFORM_PM_SLEEP_OPS
 };
 
-struct bus_type platform_bus_type = {
+extern struct bus_type platform_bus_type = {
 	.name		= "platform",
 	.dev_attrs	= platform_dev_attrs,
 	.match		= platform_match,
 	.uevent		= platform_uevent,
 	.pm		= &platform_dev_pm_ops,
 };
-EXPORT_SYMBOL_GPL(platform_bus_type);
 
 int __init platform_bus_init(void)
 {
@@ -935,7 +916,7 @@ int __init platform_bus_init(void)
 }
 
 #ifndef ARCH_HAS_DMA_GET_REQUIRED_MASK
-u64 dma_get_required_mask(struct device *dev)
+extern u64 dma_get_required_mask(struct device *dev)
 {
 	u32 low_totalram = ((max_pfn - 1) << PAGE_SHIFT);
 	u32 high_totalram = ((max_pfn - 1) >> (32 - PAGE_SHIFT));
@@ -953,7 +934,6 @@ u64 dma_get_required_mask(struct device *dev)
 	}
 	return mask;
 }
-EXPORT_SYMBOL_GPL(dma_get_required_mask);
 #endif
 
 static __initdata LIST_HEAD(early_platform_driver_list);
