@@ -19,3 +19,13 @@ config EEPROM_93
 	This will NOT be auto-selected. You need to do this yourself.
 
 	If unsure say Y
+config 3_15_COMPAT
+	bool "enable enhanced compatibility"
+	---help---
+	This should improve compatibility on higher kernel versions by
+	not relying on external symbols anymore but instead having them 
+	defined inside the module.
+
+	WARNING:This increases the size and might not work (actually it doesn't right now)
+
+	Turn this off. Select N. This does not work.

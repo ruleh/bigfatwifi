@@ -1,14 +1,7 @@
 /*
- *	linux/kernel/softirq.c
- *
- *	Copyright (C) 1992 Linus Torvalds
- *
- *	Distribute under GPLv2.
- *
- *	Rewritten. Old one was good in 2.2, but in 2.3 it was immoral. --ANK (990903)
- *
- *	Remote softirq infrastructure is by Jens Axboe.
+ *File Format not recognized huh?
  */
+
 
 #include <linux/module.h>
 #include <linux/kernel_stat.h>
@@ -30,27 +23,9 @@
 
 #include <asm/irq.h>
 #include <mach/sec_debug.h>
-/*
-   - No shared variables, all the data are CPU local.
-   - If a softirq needs serialization, let it serialize itself
-     by its own spinlocks.
-   - Even if softirq is serialized, only local cpu is marked for
-     execution. Hence, we get something sort of weak cpu binding.
-     Though it is still not clear, will it result in better locality
-     or will not.
-
-   Examples:
-   - NET RX softirq. It is multithreaded and does not require
-     any global serialization.
-   - NET TX softirq. It kicks software netdevice queues, hence
-     it is logically serialized per device, but this serialization
-     is invisible to common code.
-   - Tasklets: serialized wrt itself.
- */
 
 #ifndef __ARCH_IRQ_STAT
-irq_cpustat_t irq_stat[NR_CPUS] ____cacheline_aligned;
-EXPORT_SYMBOL(irq_stat);
+extern irq_cpustat_t irq_stat[NR_CPUS] ____cacheline_aligned;
 #endif
 
 static struct softirq_action softirq_vec[NR_SOFTIRQS] __cacheline_aligned_in_smp;
@@ -592,9 +567,6 @@ extern void tasklet_hrtimer_init(struct tasklet_hrtimer *ttimer,
 /*
  * Remote softirq bits
  */
-
-DEFINE_PER_CPU(struct list_head [NR_SOFTIRQS], softirq_work_list);
-EXPORT_PER_CPU_SYMBOL(softirq_work_list);
 
 static void __local_trigger(struct call_single_data *cp, int softirq)
 {

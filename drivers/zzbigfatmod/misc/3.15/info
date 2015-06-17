@@ -7,13 +7,14 @@ Right now this is basically uhmm....
 But no matter what it is, it will take a lot of time.
 (using 3.15 as a reference)
 
-workqueue.c	--done !
-workqueue.h	--done ! 
-kref.h 		--no change needed?
-softirq.c	--done !
-delay.h 	--no change needed?
-sched.c         --done !
-kernel.h        --have some mercy
-skbuff.c	--done !
-skbuff.h	--forgive me please
-platform.c	--done! ----it should be in platform_device.h <--what did I mean by that?
+workqueue.c		--done !
+workque_more.h		--done ! 
+kref.h 			--no change needed?
+softirq.c		--done !
+delay.h 		--no change needed?
+sched.c         	--done !
+kernel.h        	--have some mercy
+skbuff.c		--done !
+skbuff.h		--forgive me please
+platform.c		--done!
+platform_device.h	--no change needed?

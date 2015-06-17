@@ -1793,7 +1793,7 @@ extern __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
 	return csum;
 }
 
-vextern oid skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to)
+extern void skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to)
 {
 	__wsum csum;
 	long csstart;

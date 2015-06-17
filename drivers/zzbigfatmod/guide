@@ -5,6 +5,7 @@
 
 Content
 	--Intro
+	--Requirements
 	--Kernel
 	--Bigfatwifi
 	--Using
@@ -17,6 +18,20 @@ The bigfatwifi kernel module is a combination of wifi drivers and their dependen
 It includes cfg80211, mac80211, drivers, and some small bits and pieces.
 This guide will show you how to make the most of the bigfatwifi module.
 
+--------------------------------------------------------------------------------------------
+Requirements
+	--linux operating system (maybe 64bit)
+	--build packages (google them-- look at cyanogenmod wiki)
+	--command line knowledge
+	--file editor (with find function)
+	--kernel source code
+	--bigfat source code
+	--time
+	--more time
+	--even more time
+	--patience
+
+Nice and long list
 --------------------------------------------------------------------------------------------
 Kernel
 
@@ -42,6 +57,7 @@ Therefore you need to recompile your kernel and flash it on your phone
 	--Replace the line 	"CONFIG_CFG80211=y"		with	"CONFIG_CFG80211=m"
 	--Replace the line 	"CONFIG_NEW_LEDS not set"	with 	"CONFIG_NEW_LEDS=y"
 	--Replace the line  	"CONFIG_LEDS_CLASS not set"	with 	"CONFIG_LEDS_CLASS=y"
+	--Replace the line  	"CONFIG_AVERAGE not set"	with	"CONFIG_AVERAGE=y"
 
 ==Run "make" and wait until it is finished
 ==Run "make modules"
@@ -59,7 +75,10 @@ Therefore you need to recompile your kernel and flash it on your phone
 	--boot
 	--.
 
-NOTE: this is different for every kernel, I would advise to look up a few other guides as well if you have troubles compiling your kernel from source and politely ask your kernel developer for help
+NOTE: this is different for every kernel, I would advise to look up a few other guides as well if you have troubles compiling your kernel from source and politely ask your kernel developer for help.
+If you're kernel is using a boot.img then I recomend koush's anykernel updater.
+https://github.com/koush/AnyKernel
+
 
 --------------------------------------------------------------------------------------------
 Bigfatwifi

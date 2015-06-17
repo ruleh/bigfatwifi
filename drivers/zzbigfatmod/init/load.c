@@ -14,6 +14,7 @@
 #include <linux/workqueue.h>
 #include <linux/list.h>
 #include <net/lib80211.h>
+#include <linux/proc_fs.h>
 
 MODULE_AUTHOR("ruleh");
 MODULE_DESCRIPTION("Bigfatwifi--a collection of your favourite wifi drivers");
@@ -22,6 +23,13 @@ MODULE_LICENSE("GPL");
 
 static int __init bigfat_init(void)
 {
+/*sched init*/
+
+	proc_create("schedstat", 0, NULL, &proc_schedstat_operations);
+	proc_create("sched_debug", 0444, NULL, &sched_debug_fops);
+	/*cpu_notifier(sched_cpu_active, CPU_PRI_SCHED_ACTIVE);
+	 *cpu_notifier(sched_cpu_inactive, CPU_PRI_SCHED_INACTIVE);
+	 */
 
 /*cfg80211 init*/
 

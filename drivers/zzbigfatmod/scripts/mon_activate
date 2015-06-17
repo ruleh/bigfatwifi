@@ -7,3 +7,4 @@ iw wlan0 set monitor none
 ifocnfig wlan0 up
 sleep 1
 echo "rfasuccess"
+exit

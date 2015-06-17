@@ -2071,7 +2071,7 @@ static void update_rq_clock_task(struct rq *rq, s64 delta)
 #include "sched_autogroup.c"
 #include "sched_stoptask.c"
 #ifdef CONFIG_SCHED_DEBUG
-# include "sched_debug.c"
+#include "sched_debug.c"
 #endif
 
 void sched_set_stop_task(int cpu, struct task_struct *stop)
@@ -6540,24 +6540,6 @@ static int __cpuinit sched_cpu_inactive(struct notifier_block *nfb,
 	}
 }
 
-static int __init migration_init(void)
-{
-	void *cpu = (void *)(long)smp_processor_id();
-	int err;
-
-	/* Initialize migration for the boot CPU */
-	err = migration_call(&migration_notifier, CPU_UP_PREPARE, cpu);
-	BUG_ON(err == NOTIFY_BAD);
-	migration_call(&migration_notifier, CPU_ONLINE, cpu);
-	register_cpu_notifier(&migration_notifier);
-
-	/* Register cpu active notifiers */
-	cpu_notifier(sched_cpu_active, CPU_PRI_SCHED_ACTIVE);
-	cpu_notifier(sched_cpu_inactive, CPU_PRI_SCHED_INACTIVE);
-
-	return 0;
-}
-early_initcall(migration_init);
 #endif
 
 #ifdef CONFIG_SMP
@@ -6568,12 +6550,8 @@ static cpumask_var_t sched_domains_tmpmask; /* sched_domains_mutex */
 
 static __read_mostly int sched_domain_debug_enabled;
 
-static int __init sched_domain_debug_setup(char *str)
-{
-	sched_domain_debug_enabled = 1;
+static sched_domain_debug_enabled = 1;
 
-	return 0;
-}
 early_param("sched_debug", sched_domain_debug_setup);
 
 static int sched_domain_debug_one(struct sched_domain *sd, int cpu, int level,

@@ -13,6 +13,13 @@ bigfatwifi-y	+= init/load.o
 bigfatwifi-$(CONFIG_EEPROM_93) 			+= misc/eeprom_93cx6.o
 bigfatwifi-$(CONFIG_CRC_ITU_ST) 		+= misc/crc-itu-t.o
 
+bigfatwifi-$(CONFIG_3_15_COMPAT)		+= misc/3.15/softirq.o \
+						   misc/3.15/skbuff.o \
+						   misc/3.15/sched.o \
+						   misc/3.15/workqueue.o \
+						   misc/3.15/platform.o 
+
+
 ccflags-y 					+= -D__CHECK_ENDIAN__
 #---------------------------------------------------------------------------------
 #cfg80211
