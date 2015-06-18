@@ -25,8 +25,8 @@ static int __init bigfat_init(void)
 {
 /*sched init*/
 
-	proc_create("schedstat", 0, NULL, &proc_schedstat_operations);
-	proc_create("sched_debug", 0444, NULL, &sched_debug_fops);
+	/*proc_create("schedstat", 0, NULL, &proc_schedstat_operations);
+	*/proc_create("sched_debug", 0444, NULL, &sched_debug_fops);
 	/*cpu_notifier(sched_cpu_active, CPU_PRI_SCHED_ACTIVE);
 	 *cpu_notifier(sched_cpu_inactive, CPU_PRI_SCHED_INACTIVE);
 	 */
