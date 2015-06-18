@@ -1,7 +1,9 @@
 #!/system/bin/sh
 ifconfig wlan0 down
 rmmod bigfatwifi
-insmod /system/lib/modules/cfg8011.ko
+sleep 2
+insmod /system/lib/modules/cfg80211.ko
+sleep 1
 svc wifi enable
 echo "rfasuccess"
 exit
