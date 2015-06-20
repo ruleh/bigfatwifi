@@ -6,7 +6,7 @@ insmod /system/lib/modules/bigfatwifi.ko
 ifconfig wlan0 down
 iwconfig wlan0 mode monitor
 iw wlan0 set monitor none
-ifocnfig wlan0 up
+ifconfig wlan0 up
 sleep 1
 echo "rfasuccess"
 exit
