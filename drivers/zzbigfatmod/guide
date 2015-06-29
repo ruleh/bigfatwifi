@@ -54,15 +54,17 @@ Therefore you need to recompile your kernel and flash it on your phone
 ==Run 	"make some_name_defconfig" 	(the defconfig for your phone)
 
 ==Open .config in your kernel directory with your favourite text editor.
-	--Replace the line 	"CONFIG_CFG80211=y"		with	"CONFIG_CFG80211=m"
-	--Replace the line 	"CONFIG_NEW_LEDS not set"	with 	"CONFIG_NEW_LEDS=y"
-	--Replace the line  	"CONFIG_LEDS_CLASS not set"	with 	"CONFIG_LEDS_CLASS=y"
-	--Replace the line  	"CONFIG_AVERAGE not set"	with	"CONFIG_AVERAGE=y"
-
+--Replace the line 	"CONFIG_CFG80211=y"		    with "CONFIG_CFG80211=m"
+--Replace the line 	"CONFIG_NEW_LEDS not set"	    with "CONFIG_NEW_LEDS=y"
+--Replace the line  	"CONFIG_LEDS_CLASS not set"	    with "CONFIG_LEDS_CLASS=y"
+--Replace the line  	"CONFIG_AVERAGE not set"	    with "CONFIG_AVERAGE=y"
+--Replace the line  	"CONFIG_RANDOM32_SELFTEST not set"  with "CONFIG_RANDOM32_SELFTEST=y"
+--Replace the line  	"CONFIG_DEBUG_ATOMIC_SLEEP not set" with "CONFIG_DEBUG_ATOMIC_SLEEP=y"
+			(If you can't find a line, then ignore it.)
 ==Run "make" and wait until it is finished
 ==Run "make modules"
 
-(If at any point, you get errors about ramdisks, see the troubleshooting section at the end.)
+(If at any point, you get errors about initramfs, see the troubleshooting section at the end.)
 
 ==Make 2 directories somewhere.
 ==Run "cp arch/arm/boot/zImage /path/to/directory1".
@@ -105,12 +107,12 @@ Usage
 
 =Usage with RfA
 	--Copy the 3 scripts to your phone and set them in RfA. 
-	--Set the monitor intterface to wlan0 (or whatever it is called) and enjoy.
+	--Set the monitor intterface to wlan0 (or whatever it is called for you) and enjoy.
 
 --------------------------------------------------------------------------------------------
 Troubleshooting
 
---ramdisk
+--initramfs/ramdisk
 	-Extract the ramdisk from the zImage or boot.img of your existing kernel.
 		->there are many ways of doing this.
 	-Copy the extracted ramdisk to the usr folder of your kernel.
@@ -124,3 +126,8 @@ Troubleshooting
 
 --kernel stops compiling, no error, returns to shell
 	 -run "make -j1" instead of "make"
+
+--help I don't understand, what am I supposed to do at step xyz?
+	 -This is normal. The guide isn't complete yet. 
+	 -However there are many guides online on compiling android kernels so I suggest
+	  looking them up.
