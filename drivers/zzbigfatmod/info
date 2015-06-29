@@ -30,18 +30,19 @@ See guide on how to use.
 -------------------------------------------------------------------------------------------
 KNOWN AND POTENTIAL PROBLEMS:
 
---some kernel versions might change some values and cause the module to fail to compile
+--some kernel versions might change some values and cause the module not to compile sometimes
 	--very specific
 
 --some crosscompilers don't compile the module
 	--this should be nearly solved by now for some compilers
 
---some kernels might need you to disable some drivers because they are already included.
+--some kernels might need you to disable some drivers because they are already included
 	--if you have a working cgf80211 stack, you can disable cfg80211 in the bigfat module
 
---lib80211 doesn't seem to work properly. No one uses this, right?
-	--it works only the first time when loading the module (after each reboot)
-	--if someone needs this urgently tell me and I will finish this quicker
+--"'something' initialized and declared 'extern'" compiler warning
+	--it happens because I put extern infront of functions that I declared externally
+	--I have done this to know if I declared a function externally or not
+	--ignore this
 
 -------------------------------------------------------------------------------------------
 If you want to add a driver or two yourself, here is how to:
