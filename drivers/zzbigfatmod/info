@@ -19,12 +19,16 @@ Currently in the module:
 	--ath9k_htc
 	(--crc-itu-t)
 	(--eeprom_93cx6)
+	(small dependencies)
 
 Most of these can be selected independently of each other.
 However this can cause some serious problems therefore it is better to select all of them.
 
 On rare cases you might want to disable cfg80211 so you can use the module without recompiling
 the kernel (since it would use the inbuilt cfg80211).  <--still don't do this.
+
+The compatibility settings don't work yet. They will mess up the module. It won't compile :(
+They are there so I don't have to do work later on.
 -------------------------------------------------------------------------------------------
 See guide on how to use.
 -------------------------------------------------------------------------------------------
@@ -67,13 +71,12 @@ If you want to add a driver or two yourself, here is how to:
 --drivers
 	Here you have to get rid of the init/exit functions and rename the module_params
 	to something unique (for ath9k_htc I named nohwcrypt to nohwcrypthtc).
-	Also you might need to change some functions or structures to extern type so the
+	Also you might need to declare some functions or structures as extern so the
 	init/exit file can access it and register the device.
 	You also need to change the name of the driver in the driver table (?).
 	
 --Kconfig
 	You need to add an entry to enable/disable your driver.
-	This is actually not needed but will be important later on when I or someone else
-	decides to make a major overhaul of this module.
+	This is a requirement as the module itself needs to be modular.
 	If possible remove the dependencies from Kconfig to allow the module being built
-	without actually meeting those dependencies (since they might be allready included).
+	without actually meeting those dependencies (since they might be already included).
