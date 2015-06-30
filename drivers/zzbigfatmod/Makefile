@@ -7,21 +7,19 @@ obj-m		+= bigfatwifi.o
 
 bigfatwifi-y	+= init/load.o
 
-#---------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
 #misc.
 
 bigfatwifi-$(CONFIG_EEPROM_93) 			+= misc/eeprom_93cx6.o
 bigfatwifi-$(CONFIG_CRC_ITU_ST) 		+= misc/crc-itu-t.o
 
-bigfatwifi-$(CONFIG_3_15_COMPAT)		+= misc/3.15/softirq.o \
-						   misc/3.15/skbuff.o \
-						   misc/3.15/sched.o \
-						   misc/3.15/workqueue.o \
-						   misc/3.15/platform.o 
 
+bigfatwifi-$(CONFIG_3_15_COMPAT)		+= misc/3.15n/kref.o \
+						   misc/3.15n/symbols.o \
+						   misc/3.15n/delay.o
 
 ccflags-y 					+= -D__CHECK_ENDIAN__
-#---------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
 #cfg80211
 
 bigfatwifi-$(CONFIG_LIB80211)			+= wireless/lib80211.o
@@ -50,7 +48,7 @@ bigfatwifi-$(CONFIG_CFG80211_WEXT) 		+= wireless/wext-compat.o \
 bigfatwifi-$(CONFIG_CFG80211_INTERNAL_REGDB) 	+= wireless/regdb.o
 
 
-#----------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
 #mac80211
 
 bigfatwifi-$(CONFIG_MAC80211)		+= mac80211/main.o \
@@ -113,7 +111,7 @@ bigfatwifi-$(CONFIG_MAC80211_RC_PID) 		+= $(rc80211_pid-y)
 bigfatwifi-$(CONFIG_MAC80211_RC_MINSTREL) 	+= $(rc80211_minstrel-y)
 bigfatwifi-$(CONFIG_MAC80211_RC_MINSTREL_HT)    += $(rc80211_minstrel_ht-y)
 
-#----------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
 #ralink
 
 bigfatwifi-$(CONFIG_RT2X00)			+= drivers/wireless/rt2x00/rt2x00dev.o
@@ -132,14 +130,14 @@ bigfatwifi-$(CONFIG_RT2500USB)			+= drivers/wireless/rt2x00/rt2500usb.o
 bigfatwifi-$(CONFIG_RT73USB)			+= drivers/wireless/rt2x00/rt73usb.o
 bigfatwifi-$(CONFIG_RT2800USB)			+= drivers/wireless/rt2x00/rt2800usb.o
 
-#----------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
 #realtek
 
 bigfatwifi-$(CONFIG_RTL8187)		+= drivers/wireless/rtl818x/rtl8187/dev.o \
 					   drivers/wireless/rtl818x/rtl8187/rtl8225.o \
 					   drivers/wireless/rtl818x/rtl8187/leds.o \
 					   drivers/wireless/rtl818x/rtl8187/rfkill.o
-#----------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
 #atheros
 bigfatwifi-$(CONFIG_ATH_COMMON)		+= drivers/wireless/ath/main.o \
 					   drivers/wireless/ath/regd.o \
@@ -192,10 +190,10 @@ bigfatwifi-$(CONFIG_ATH9K_HTC) 		+= drivers/wireless/ath/ath9k/htc_hst.o \
 				 	   drivers/wireless/ath/ath9k/htc_drv_gpio.o
 
 bigfatwifi-$(CONFIG_ATH9K_HTC_DEBUGFS) 	+= drivers/wireless/ath/ath9k/htc_drv_debug.o
-#----------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------
-#add more drivers above			||<---try to keep things between these lines--->||
+#------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
+#add more drivers above			||<---try to keep things between these lines---->||
 #
 #also add the driver's init/exit functions to the init/exit file (load.c).
-#----------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------

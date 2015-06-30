@@ -12,10 +12,6 @@
 #include "../mac80211/mesh.h"
 
 
-/*sched*/
-extern const struct file_operations proc_schedstat_operations;
-extern const struct file_operations sched_debug_fops;
-
 /*cfg80211*/
 extern struct pernet_operations cfg80211_pernet_ops;
 extern struct notifier_block cfg80211_netdev_notifier;

@@ -1,0 +1,73 @@
+This is the folder for the new system of trying to get compatibility with kernel versions up to 3.15.
+This system does not include every single kernel features that was changed, but instead only the functions that changed and everything needed to make them compatible with the new kernel.
+
+These are the errors I got when trying to load the current module into kernel 3.15
+On the left are the missing symbols and on the right are the related files.
+
+
+Unkown symbol kref_put					<--lib/kref.c
+Unkown symbol kref_get
+Unkown symbol kref_init
+
+Unkown symbol __udelay					<--include/asm-generic/delay.h
+Unkown symbol __const_udelay				 --arch/arm/include/asm/delay.h
+							 --arch/arm/lib/delay.S
+
+Unkown symbol queue_delayed_work			<--include/linux/workqueue.h
+Unkown symbol queue_work				 --kernel/workqueue.c
+Unkown symbol schedule_work
+Unkown symbol schedule_delayed_work
+
+Unkown symbol platform_device_register_resndata		<--include/linux/platform_device.h
+							 --drivers/base/platform.c
+
+
+Unkown symbol local_bh_enable				<--include/linux/bottom_half.h
+							 --kernel/sotfirq.c
+
+Unkown symbol random32					<--CONFIG_RANDOM32_SELFTEST
+
+Unkown symbol dev_alloc_skb				<--include/linux/skbuff.h
+							 --net/core/skbuff.c
+
+Unkown symbol __might_sleep				<--CONFIG_DEBUG_ATOMIC_SLEEP
+
+
+
+
+kref.c will get the [EXPORT_SYMBOL] removed and instead be changed to extern.
+It will be compiled into the module. No more changes needed
+
+
+Udelay is kinda meh...is it really written in assembly?
+anyways,  __udelay will use the new system by using a different header file.
+This might need an entry in kconfig so that it isn't used on lower kernel versions.
+
+__const_udelay is actually the same.
+
+Actually I just pushed it into the module
+
+queue_delayed_work can also use a similar method as udelay.
+It turns out that queue_delayed_work changed from an external symbol into an inline function probably because of performance.
+We can replace that part of the header file with the inline function or we can include the external symbol as an external function with only the most needed dependencies. I actually refer the second method.
+
+queue_work is also part of that and so is schedule_work and schedule_delayed_work
+
+
+platform_device_register_resndata is yet another inline function....same thing as above...
+
+
+local_bh_enable guess what. Inline function. But still nice filename "bottom_half.h"
+
+
+dev_alloc_skb is a really exciting one: INLINE FUNCTION.
+
+
+__might_sleep finally saved me from those evil inlines. It turns out it is simply a .config thing, luckily. However I am so tired that I __might_sleep as well.
+This needs to be enabled in the kernel.
+
+(I will do formatting later if ever)
+
+So it seems like most changes are that symbols changed to inline functions.
+
+Done everything here. Not tested yet.
