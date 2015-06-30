@@ -1269,16 +1269,16 @@ static void delayed_work_timer_fn(unsigned long __data)
  *
  * Returns 0 if @work was already on a queue, non-zero otherwise.
  */
-/*int queue_delayed_work(struct workqueue_struct *wq,
- *			struct delayed_work *dwork, unsigned long delay)
- *{
- *	if (delay == 0)
- *		return queue_work(wq, &dwork->work);
- *
- *	return queue_delayed_work_on(-1, wq, dwork, delay);
- *}
- *EXPORT_SYMBOL_GPL(queue_delayed_work);
- */
+int queue_delayed_work(struct workqueue_struct *wq,
+			struct delayed_work *dwork, unsigned long delay)
+{
+	if (delay == 0)
+		return queue_work(wq, &dwork->work);
+
+	return queue_delayed_work_on(-1, wq, dwork, delay);
+}
+EXPORT_SYMBOL_GPL(queue_delayed_work);
+
 /**
  * queue_delayed_work_on - queue work on specific CPU after delay
  * @cpu: CPU number to execute work on
