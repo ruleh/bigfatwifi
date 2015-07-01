@@ -35,7 +35,7 @@ Nice and long list
 --------------------------------------------------------------------------------------------
 Kernel
 
-The bigfatwifi module requires 2 small changes in your kernel.
+The bigfatwifi module requires a few small changes in your kernel's .config file.
 Therefore you need to recompile your kernel and flash it on your phone
 
 ==First get the kernel sources for your favourite kernel.
@@ -57,6 +57,7 @@ Therefore you need to recompile your kernel and flash it on your phone
 --Replace the line 	"CONFIG_CFG80211=y"		    with "CONFIG_CFG80211=m"
 --Replace the line 	"CONFIG_NEW_LEDS not set"	    with "CONFIG_NEW_LEDS=y"
 --Replace the line  	"CONFIG_LEDS_CLASS not set"	    with "CONFIG_LEDS_CLASS=y"
+--Replace the line	"CONFIG_LEDS_TRIGGERS not set"	    with "CONFIG_LEDS_TRIGGERS=y"
 --Replace the line  	"CONFIG_AVERAGE not set"	    with "CONFIG_AVERAGE=y"
 --Replace the line  	"CONFIG_RANDOM32_SELFTEST not set"  with "CONFIG_RANDOM32_SELFTEST=y"
 --Replace the line  	"CONFIG_DEBUG_ATOMIC_SLEEP not set" with "CONFIG_DEBUG_ATOMIC_SLEEP=y"
