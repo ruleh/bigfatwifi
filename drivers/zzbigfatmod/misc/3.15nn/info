@@ -1,0 +1,35 @@
+This is the 5th attempt at getting compatibility right.
+This time only the header files will be edited to add those inline functions there where they are needed.
+The rest is them handled by the symbols in the kernel which did not change over the versions.
+Of course this can still be toggled by the compat settings.
+Some headers are in ../headers but they aren't relevant.
+
+To change between header files, a new header file will replace the original one and decide, depending on the config settings, which header file to use.
+
+below are the symbols again for me to see.
+
+Unkown symbol kref_put					<--lib/kref.c
+Unkown symbol kref_get					 --inlcude/linux/kref.h
+Unkown symbol kref_init
+
+Unkown symbol __udelay					<--include/asm-generic/delay.h
+Unkown symbol __const_udelay				 --arch/arm/include/asm/delay.h
+							 --arch/arm/lib/delay.S
+
+Unkown symbol queue_delayed_work			<--include/linux/workqueue.h
+Unkown symbol queue_work				 --kernel/workqueue.c
+Unkown symbol schedule_work
+Unkown symbol schedule_delayed_work
+
+Unkown symbol platform_device_register_resndata		<--include/linux/platform_device.h
+							 --drivers/base/platform.c
+
+Unkown symbol local_bh_enable				<--include/linux/bottom_half.h
+							 --kernel/sotfirq.c
+
+Unkown symbol random32					<--CONFIG_RANDOM32_SELFTEST
+
+Unkown symbol dev_alloc_skb				<--include/linux/skbuff.h
+							 --net/core/skbuff.c
+
+Unkown symbol __might_sleep				<--CONFIG_DEBUG_ATOMIC_SLEEP
